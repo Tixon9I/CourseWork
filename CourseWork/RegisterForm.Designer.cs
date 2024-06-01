@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.comboBoxAddress = new System.Windows.Forms.ComboBox();
+            this.comboBoxPhone = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxAddress = new System.Windows.Forms.TextBox();
             this.textBoxPhone = new System.Windows.Forms.TextBox();
             this.buttonBackLogin = new System.Windows.Forms.Button();
             this.pictureBoxHidden = new System.Windows.Forms.PictureBox();
@@ -63,11 +64,12 @@
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(156)))), ((int)(((byte)(246)))));
+            this.mainPanel.Controls.Add(this.comboBoxAddress);
+            this.mainPanel.Controls.Add(this.comboBoxPhone);
             this.mainPanel.Controls.Add(this.label4);
             this.mainPanel.Controls.Add(this.label3);
             this.mainPanel.Controls.Add(this.label2);
             this.mainPanel.Controls.Add(this.label1);
-            this.mainPanel.Controls.Add(this.textBoxAddress);
             this.mainPanel.Controls.Add(this.textBoxPhone);
             this.mainPanel.Controls.Add(this.buttonBackLogin);
             this.mainPanel.Controls.Add(this.pictureBoxHidden);
@@ -89,6 +91,26 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(800, 636);
             this.mainPanel.TabIndex = 1;
+            // 
+            // comboBoxAddress
+            // 
+            this.comboBoxAddress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAddress.FormattingEnabled = true;
+            this.comboBoxAddress.Location = new System.Drawing.Point(565, 489);
+            this.comboBoxAddress.MaxLength = 10;
+            this.comboBoxAddress.Name = "comboBoxAddress";
+            this.comboBoxAddress.Size = new System.Drawing.Size(205, 24);
+            this.comboBoxAddress.TabIndex = 22;
+            // 
+            // comboBoxPhone
+            // 
+            this.comboBoxPhone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPhone.FormattingEnabled = true;
+            this.comboBoxPhone.Location = new System.Drawing.Point(565, 402);
+            this.comboBoxPhone.MaxLength = 12;
+            this.comboBoxPhone.Name = "comboBoxPhone";
+            this.comboBoxPhone.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxPhone.TabIndex = 21;
             // 
             // label4
             // 
@@ -116,7 +138,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(348, 459);
+            this.label2.Location = new System.Drawing.Point(348, 486);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(192, 23);
             this.label2.TabIndex = 18;
@@ -126,29 +148,18 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(399, 405);
+            this.label1.Location = new System.Drawing.Point(399, 422);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(147, 23);
             this.label1.TabIndex = 17;
             this.label1.Text = "Ном. телефону";
             // 
-            // textBoxAddress
-            // 
-            this.textBoxAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxAddress.Font = new System.Drawing.Font("Arial Narrow", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxAddress.Location = new System.Drawing.Point(565, 455);
-            this.textBoxAddress.Multiline = true;
-            this.textBoxAddress.Name = "textBoxAddress";
-            this.textBoxAddress.Size = new System.Drawing.Size(205, 38);
-            this.textBoxAddress.TabIndex = 16;
-            this.textBoxAddress.Enter += new System.EventHandler(this.textBoxAddress_Enter);
-            this.textBoxAddress.Leave += new System.EventHandler(this.textBoxAddress_Leave);
-            // 
             // textBoxPhone
             // 
             this.textBoxPhone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPhone.Font = new System.Drawing.Font("Arial Narrow", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxPhone.Location = new System.Drawing.Point(565, 401);
+            this.textBoxPhone.Location = new System.Drawing.Point(565, 432);
+            this.textBoxPhone.MaxLength = 7;
             this.textBoxPhone.Multiline = true;
             this.textBoxPhone.Name = "textBoxPhone";
             this.textBoxPhone.Size = new System.Drawing.Size(205, 38);
@@ -227,6 +238,7 @@
             this.textBoxPatronymic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPatronymic.Font = new System.Drawing.Font("Arial Narrow", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxPatronymic.Location = new System.Drawing.Point(565, 348);
+            this.textBoxPatronymic.MaxLength = 20;
             this.textBoxPatronymic.Multiline = true;
             this.textBoxPatronymic.Name = "textBoxPatronymic";
             this.textBoxPatronymic.Size = new System.Drawing.Size(205, 38);
@@ -239,6 +251,7 @@
             this.textBoxSurname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxSurname.Font = new System.Drawing.Font("Arial Narrow", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxSurname.Location = new System.Drawing.Point(565, 293);
+            this.textBoxSurname.MaxLength = 20;
             this.textBoxSurname.Multiline = true;
             this.textBoxSurname.Name = "textBoxSurname";
             this.textBoxSurname.Size = new System.Drawing.Size(205, 38);
@@ -251,6 +264,7 @@
             this.textBoxName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxName.Font = new System.Drawing.Font("Arial Narrow", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxName.Location = new System.Drawing.Point(565, 240);
+            this.textBoxName.MaxLength = 20;
             this.textBoxName.Multiline = true;
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(205, 38);
@@ -277,6 +291,7 @@
             this.textBoxLock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxLock.Font = new System.Drawing.Font("Arial Narrow", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxLock.Location = new System.Drawing.Point(113, 304);
+            this.textBoxLock.MaxLength = 25;
             this.textBoxLock.Name = "textBoxLock";
             this.textBoxLock.Size = new System.Drawing.Size(187, 34);
             this.textBoxLock.TabIndex = 4;
@@ -289,6 +304,7 @@
             this.textBoxUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxUser.Font = new System.Drawing.Font("Arial Narrow", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxUser.Location = new System.Drawing.Point(113, 235);
+            this.textBoxUser.MaxLength = 20;
             this.textBoxUser.Multiline = true;
             this.textBoxUser.Name = "textBoxUser";
             this.textBoxUser.Size = new System.Drawing.Size(187, 38);
@@ -396,10 +412,11 @@
         private System.Windows.Forms.PictureBox pictureBoxHidden;
         private System.Windows.Forms.Button buttonBackLogin;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxAddress;
         private System.Windows.Forms.TextBox textBoxPhone;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBoxPhone;
+        private System.Windows.Forms.ComboBox comboBoxAddress;
     }
 }

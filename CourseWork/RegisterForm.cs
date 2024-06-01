@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CourseWork
 {
@@ -22,6 +23,9 @@ namespace CourseWork
             InitializeComponent();
 
             this.selectedRole = selectedRole;
+
+            comboBoxPhone.Items.AddRange(new object[] { "050", "066", "095", "099", "067", "068", "096", "097", "098", "063", "073", "093" });
+            comboBoxAddress.Items.AddRange(new object[] { "Магістральна", "Ланжеронівська", "Калинова", "Закарпатська", "Житомирська", "Єлісаветинська", "Естонська", "Дем’янова", "Гагаріна", "Вапняна" });
 
             this.Shown += new EventHandler(RegisterForm_Shown);
         }
@@ -134,24 +138,6 @@ namespace CourseWork
             }
         }
 
-        private void textBoxAddress_Enter(object sender, EventArgs e)
-        {
-            if (textBoxAddress.Text == "Введіть адресу")
-            {
-                textBoxAddress.Text = "";
-                textBoxAddress.ForeColor = Color.Black;
-            }
-        }
-
-        private void textBoxAddress_Leave(object sender, EventArgs e)
-        {
-            if (textBoxAddress.Text == "")
-            {
-                textBoxAddress.Text = "Введіть адресу";
-                textBoxAddress.ForeColor = Color.Gray;
-            }
-        }
-
         private void textBoxUser_Enter(object sender, EventArgs e)
         {
             if (textBoxUser.Text == "Введіть логін")
@@ -233,12 +219,6 @@ namespace CourseWork
                 textBoxPhone.Text = "Введіть телефон";
                 textBoxPhone.ForeColor = Color.Gray;
             }
-
-            if (string.IsNullOrEmpty(textBoxAddress.Text))
-            {
-                textBoxAddress.Text = "Введіть адресу";
-                textBoxAddress.ForeColor = Color.Gray;
-            }
         }
 
         // Показати/Сховати текст в текст-боксі Password
@@ -267,17 +247,28 @@ namespace CourseWork
         // Метод реєстрації юзера
         private void buttonRegister_Click(object sender, EventArgs e)
         {
-            var login = textBoxUser.Text;
-            var password = textBoxLock.Text;
-            var name = textBoxName.Text;
-            var surname = textBoxSurname.Text;
-            var patronymic = textBoxPatronymic.Text;
-            var phone = textBoxPhone.Text;
-            var address = textBoxAddress.Text;
+            var login = textBoxUser.Text.Trim();
+            var password = textBoxLock.Text.Trim();
+            var name = textBoxName.Text.Trim();
+            var surname = textBoxSurname.Text.Trim();
+            var patronymic = textBoxPatronymic.Text.Trim();
+            var phone = comboBoxPhone.Text + textBoxPhone.Text.Trim();
+            var address = comboBoxAddress.Text;
+
+            if (!AreRequiredFieldsFilled(login, password, name, surname, patronymic, phone, address))
+            {
+                return;
+            }
 
             if (IsLoginExists(login))
             {
                 MessageBox.Show("Користувач з таким логіном вже існує!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (IsPhoneExists(phone))
+            {
+                MessageBox.Show("Користувач з таким номером телефону вже існує!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -325,12 +316,72 @@ namespace CourseWork
             }
         }
 
+        // Перевірка на заповнення обов'язкових полів
+        private bool AreRequiredFieldsFilled(string login, string password, string name, string surname, string patronymic, string phone, string address)
+        {
+            List<string> errorMessages = new List<string>();
+
+            // Перевірка на заповнення обов'язкових полів
+            if (string.IsNullOrEmpty(login) || login == "Введіть логін")
+            {
+                errorMessages.Add("Логін");
+            }
+            if (string.IsNullOrEmpty(password) || password == "Введіть пароль")
+            {
+                errorMessages.Add("Пароль");
+            }
+            if (string.IsNullOrEmpty(name) || name == "Введіть ім'я")
+            {
+                errorMessages.Add("Ім'я");
+            }
+            if (string.IsNullOrEmpty(surname) || surname == "Введіть прізвище")
+            {
+                errorMessages.Add("Прізвище");
+            }
+            if (string.IsNullOrEmpty(patronymic) || patronymic == "Введіть по-батькові")
+            {
+                errorMessages.Add("По-батькові");
+            }
+            if (string.IsNullOrEmpty(comboBoxPhone.Text) || string.IsNullOrEmpty(textBoxPhone.Text.Trim()))
+            {
+                errorMessages.Add("Телефон");
+            }
+            if (string.IsNullOrEmpty(address) || address == "Введіть адресу")
+            {
+                errorMessages.Add("Адресу");
+            }
+
+            if (errorMessages.Count > 0)
+            {
+                MessageBox.Show("Будь ласка, заповніть наступні поля: " + string.Join(", ", errorMessages), "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
         // Метод для перевірки існування користувача з таким логіном в базі даних
         private bool IsLoginExists(string login)
         {
             string queryString = $"SELECT COUNT(*) FROM register WHERE LoginUserR = '{login}'";
 
             SqlCommand command = new SqlCommand(queryString, dataBase.getConnection());
+
+            dataBase.openConnection();
+
+            int count = (int)command.ExecuteScalar();
+
+            dataBase.closeConnection();
+
+            return count > 0;
+        }
+
+        private bool IsPhoneExists(string phone)
+        {
+            string queryString = $"SELECT COUNT(*) FROM Client WHERE PhoneC = @phone";
+
+            SqlCommand command = new SqlCommand(queryString, dataBase.getConnection());
+            command.Parameters.AddWithValue("@phone", phone);
 
             dataBase.openConnection();
 
@@ -349,6 +400,5 @@ namespace CourseWork
             loginForm.ShowDialog();
             this.Close();
         }
-
     }
 }
