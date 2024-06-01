@@ -32,6 +32,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.closeButton = new System.Windows.Forms.Label();
             this.labelPanel = new System.Windows.Forms.Label();
+            this.buttonConnectionRequest = new System.Windows.Forms.Button();
+            this.buttonAccidentRequest = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -39,6 +41,8 @@
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(156)))), ((int)(((byte)(246)))));
+            this.mainPanel.Controls.Add(this.buttonAccidentRequest);
+            this.mainPanel.Controls.Add(this.buttonConnectionRequest);
             this.mainPanel.Controls.Add(this.panel2);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
@@ -66,6 +70,9 @@
             this.closeButton.Size = new System.Drawing.Size(28, 29);
             this.closeButton.TabIndex = 1;
             this.closeButton.Text = "x";
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            this.closeButton.MouseEnter += new System.EventHandler(this.closeButton_MouseEnter);
+            this.closeButton.MouseLeave += new System.EventHandler(this.closeButton_MouseLeave);
             // 
             // labelPanel
             // 
@@ -77,6 +84,34 @@
             this.labelPanel.TabIndex = 0;
             this.labelPanel.Text = "Обліковий запис користувача";
             this.labelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelPanel_MouseDown);
+            this.labelPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.labelPanel_MouseMove);
+            // 
+            // buttonConnectionRequest
+            // 
+            this.buttonConnectionRequest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(156)))), ((int)(((byte)(246)))));
+            this.buttonConnectionRequest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonConnectionRequest.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonConnectionRequest.Location = new System.Drawing.Point(857, 153);
+            this.buttonConnectionRequest.Name = "buttonConnectionRequest";
+            this.buttonConnectionRequest.Size = new System.Drawing.Size(168, 85);
+            this.buttonConnectionRequest.TabIndex = 2;
+            this.buttonConnectionRequest.Text = "Заявка на підключення до системи водопостачання";
+            this.buttonConnectionRequest.UseVisualStyleBackColor = false;
+            this.buttonConnectionRequest.Click += new System.EventHandler(this.buttonConnectionRequest_Click);
+            // 
+            // buttonAccidentRequest
+            // 
+            this.buttonAccidentRequest.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(156)))), ((int)(((byte)(246)))));
+            this.buttonAccidentRequest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonAccidentRequest.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonAccidentRequest.Location = new System.Drawing.Point(857, 266);
+            this.buttonAccidentRequest.Name = "buttonAccidentRequest";
+            this.buttonAccidentRequest.Size = new System.Drawing.Size(168, 85);
+            this.buttonAccidentRequest.TabIndex = 3;
+            this.buttonAccidentRequest.Text = "Заявка на усунення аварії";
+            this.buttonAccidentRequest.UseVisualStyleBackColor = false;
+            this.buttonAccidentRequest.Click += new System.EventHandler(this.buttonAccidentRequest_Click);
             // 
             // UserForm
             // 
@@ -98,5 +133,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label closeButton;
         private System.Windows.Forms.Label labelPanel;
+        private System.Windows.Forms.Button buttonConnectionRequest;
+        private System.Windows.Forms.Button buttonAccidentRequest;
     }
 }

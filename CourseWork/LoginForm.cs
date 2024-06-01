@@ -174,7 +174,7 @@ namespace CourseWork
         {
             var loginUser = textBoxUser.Text;
             var passwordUser = textBoxLock.Text;
-            
+
             SqlDataAdapter adapter = new SqlDataAdapter();
             DataTable table = new DataTable();
 
@@ -188,10 +188,23 @@ namespace CourseWork
 
             if (table.Rows.Count == 1)
             {
+                int userId = Convert.ToInt32(table.Rows[0]["iduser"]); // Отримати ідентифікатор користувача з результатів запиту
+
+                // Відкриваємо підключення до бази даних
+                dataBase.getConnection().Open();
+
+                // Здійснюємо другий запит для отримання ідентифікатора клієнта
+                string clientQueryString = $"SELECT IdClient FROM Client WHERE IdUser = {userId}";
+                SqlCommand clientCommand = new SqlCommand(clientQueryString, dataBase.getConnection());
+                int clientId = Convert.ToInt32(clientCommand.ExecuteScalar());
+
+                // Закриваємо підключення до бази даних після виконання запиту
+                dataBase.getConnection().Close();
+
                 if (selectedRole == false)
                 {
                     MessageBox.Show("Авторизація пройшла!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    UserForm userForm = new UserForm();
+                    UserForm userForm = new UserForm(clientId);
                     this.Hide();
                     userForm.ShowDialog();
                     this.Close();
@@ -204,13 +217,13 @@ namespace CourseWork
                     adminForm.ShowDialog();
                     this.Close();
                 }
-                
             }
             else
             {
                 MessageBox.Show("Обліковий запис не існує для даної ролі!", "Помилка авторизації!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
 
         // Показати/Сховати текст в текст-боксі Password
         private void pictureBoxLook_Click(object sender, EventArgs e)

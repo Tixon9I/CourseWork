@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccidentRequest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AccidentRequest.Designer.cs">
+      <DependentUpon>AccidentRequest.cs</DependentUpon>
+    </Compile>
     <Compile Include="AdminForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -53,9 +59,7 @@
       <DependentUpon>AdminForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Brigade.cs" />
-    <Compile Include="Classes\ConnectionRequest.cs" />
     <Compile Include="Classes\Database.cs" />
-    <Compile Include="Classes\EmergencyRepairRequest.cs" />
     <Compile Include="Classes\Invoice.cs" />
     <Compile Include="Classes\Material.cs" />
     <Compile Include="Classes\WriteOffMaterials.cs" />
@@ -85,6 +89,9 @@
     <Compile Include="UserForm.Designer.cs">
       <DependentUpon>UserForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AccidentRequest.resx">
+      <DependentUpon>AccidentRequest.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -140,6 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon\Employee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icon\help.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
