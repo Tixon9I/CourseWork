@@ -81,20 +81,20 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(27, 191);
+            this.label1.Location = new System.Drawing.Point(153, 157);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(129, 23);
+            this.label1.Size = new System.Drawing.Size(135, 23);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Деталі аварії";
+            this.label1.Text = "Деталі аварії:";
             // 
             // comboBoxAccident
             // 
             this.comboBoxAccident.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAccident.FormattingEnabled = true;
-            this.comboBoxAccident.Location = new System.Drawing.Point(162, 191);
+            this.comboBoxAccident.Location = new System.Drawing.Point(87, 194);
             this.comboBoxAccident.MaxLength = 10;
             this.comboBoxAccident.Name = "comboBoxAccident";
-            this.comboBoxAccident.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxAccident.Size = new System.Drawing.Size(267, 24);
             this.comboBoxAccident.TabIndex = 1;
             // 
             // panel2

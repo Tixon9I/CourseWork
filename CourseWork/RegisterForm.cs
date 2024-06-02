@@ -364,30 +364,34 @@ namespace CourseWork
         private bool IsLoginExists(string login)
         {
             string queryString = $"SELECT COUNT(*) FROM register WHERE LoginUserR = '{login}'";
+            SqlConnection connection = dataBase.getConnection();
 
-            SqlCommand command = new SqlCommand(queryString, dataBase.getConnection());
+            SqlCommand command = new SqlCommand(queryString, connection);
 
-            dataBase.openConnection();
+            dataBase.openConnection(connection);
 
             int count = (int)command.ExecuteScalar();
 
-            dataBase.closeConnection();
+            dataBase.closeConnection(connection);
 
             return count > 0;
         }
 
         private bool IsPhoneExists(string phone)
         {
+            SqlConnection connection = dataBase.getConnection();
+
+            dataBase.openConnection(connection);
+
             string queryString = $"SELECT COUNT(*) FROM Client WHERE PhoneC = @phone";
 
-            SqlCommand command = new SqlCommand(queryString, dataBase.getConnection());
+            SqlCommand command = new SqlCommand(queryString, connection);
             command.Parameters.AddWithValue("@phone", phone);
-
-            dataBase.openConnection();
+            
 
             int count = (int)command.ExecuteScalar();
 
-            dataBase.closeConnection();
+            dataBase.closeConnection(connection);
 
             return count > 0;
         }

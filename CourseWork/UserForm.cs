@@ -135,8 +135,10 @@ namespace CourseWork
         {
             string details = "Підключення до системи водопостачання";
 
-            dataBase.openConnection();
-            using (SqlConnection connection = dataBase.getConnection())
+            SqlConnection connection = dataBase.getConnection();
+
+            dataBase.openConnection(connection);
+            using (connection)
             {
                 SqlTransaction transaction = connection.BeginTransaction();
 
@@ -162,7 +164,7 @@ namespace CourseWork
                 }
                 finally
                 {
-                    dataBase.closeConnection();
+                    dataBase.closeConnection(connection);
                 }
             }
         }
@@ -209,8 +211,10 @@ namespace CourseWork
                         return;
                     }
 
-                    dataBase.openConnection();
-                    using (SqlConnection connection = dataBase.getConnection())
+                    SqlConnection connection = dataBase.getConnection();
+
+                    dataBase.openConnection(connection);
+                    using (connection)
                     {
                         SqlTransaction transaction = connection.BeginTransaction();
 
@@ -235,7 +239,7 @@ namespace CourseWork
                         }
                         finally
                         {
-                            dataBase.closeConnection();
+                            dataBase.closeConnection(connection);
                         }
                     }
                 }
