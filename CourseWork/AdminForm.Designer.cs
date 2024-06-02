@@ -43,7 +43,7 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(1047, 641);
+            this.mainPanel.Size = new System.Drawing.Size(1222, 721);
             this.mainPanel.TabIndex = 3;
             // 
             // panel2
@@ -54,7 +54,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1047, 128);
+            this.panel2.Size = new System.Drawing.Size(1222, 128);
             this.panel2.TabIndex = 0;
             // 
             // closeButton
@@ -74,7 +74,7 @@
             this.labelPanel.Font = new System.Drawing.Font("Arial", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelPanel.Location = new System.Drawing.Point(0, 0);
             this.labelPanel.Name = "labelPanel";
-            this.labelPanel.Size = new System.Drawing.Size(1047, 128);
+            this.labelPanel.Size = new System.Drawing.Size(1222, 128);
             this.labelPanel.TabIndex = 0;
             this.labelPanel.Text = "Середовище працівника";
             this.labelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -83,7 +83,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1047, 641);
+            this.ClientSize = new System.Drawing.Size(1222, 721);
             this.Controls.Add(this.mainPanel);
             this.Name = "AdminForm";
             this.Text = "AdminForm";

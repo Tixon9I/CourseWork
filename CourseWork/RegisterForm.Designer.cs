@@ -164,6 +164,7 @@
             this.textBoxPhone.Name = "textBoxPhone";
             this.textBoxPhone.Size = new System.Drawing.Size(205, 38);
             this.textBoxPhone.TabIndex = 15;
+            this.textBoxPhone.TextChanged += new System.EventHandler(this.textBoxPhone_TextChanged);
             this.textBoxPhone.Enter += new System.EventHandler(this.textBoxPhone_Enter);
             this.textBoxPhone.Leave += new System.EventHandler(this.textBoxPhone_Leave);
             // 

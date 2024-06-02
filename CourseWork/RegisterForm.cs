@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Text.RegularExpressions;
 
 namespace CourseWork
 {
@@ -272,6 +273,27 @@ namespace CourseWork
                 return;
             }
 
+            // Перевірка логіна
+            if (!IsLoginValid(login))
+            {
+                MessageBox.Show("Логін має містити лише латинські букви та цифри!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Перевірка пароля
+            if (!IsPasswordValid(password))
+            {
+                MessageBox.Show("Пароль має містити лише латинські букви та цифри!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Перевірка номера телефону
+            if (!IsPhoneValid(textBoxPhone.Text.Trim()))
+            {
+                MessageBox.Show("Номер телефону має містити щонайменше 7 цифр!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             using (SqlConnection connection = dataBase.getConnection())
             {
                 connection.Open();
@@ -377,6 +399,7 @@ namespace CourseWork
             return count > 0;
         }
 
+        // Метод для перевірки існування користувача з таким номером телефону в базі даних
         private bool IsPhoneExists(string phone)
         {
             SqlConnection connection = dataBase.getConnection();
@@ -394,6 +417,33 @@ namespace CourseWork
             dataBase.closeConnection(connection);
 
             return count > 0;
+        }
+
+        // Метод для перевірки чи логін введено латинськими буквами
+        private bool IsLoginValid(string login)
+        {
+            return Regex.IsMatch(login, "^[a-zA-Z0-9]+$");
+        }
+
+        // Метод для перевірки чи пароль введено латинськими буквами
+        private bool IsPasswordValid(string password)
+        {
+            return Regex.IsMatch(password, "^[a-zA-Z0-9]+$");
+        }
+
+        // Метод для перевірки чи номер телефону містить не менше 7 цифр
+        private bool IsPhoneValid(string phone)
+        {
+            return Regex.IsMatch(phone, @"^\d{10}$");
+        }
+       
+        // Ввід лише цифр
+        private void textBoxPhone_TextChanged(object sender, EventArgs e)
+        {
+            string text = textBoxPhone.Text;
+            textBoxPhone.ForeColor = Color.Black;
+            textBoxPhone.Text = Regex.Replace(text, "[^0-9]", ""); // Видаляємо всі символи, які не є цифрами
+            
         }
 
         // Поверненнся до вікна авторизації
