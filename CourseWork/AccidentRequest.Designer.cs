@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.buttonConfirm = new System.Windows.Forms.Button();
             this.pictureBoxHelp = new System.Windows.Forms.PictureBox();
@@ -37,7 +36,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.closeButton = new System.Windows.Forms.Label();
             this.labelPanel = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHelp)).BeginInit();
             this.panel2.SuspendLayout();
@@ -46,6 +44,7 @@
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(156)))), ((int)(((byte)(246)))));
+            this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.mainPanel.Controls.Add(this.buttonConfirm);
             this.mainPanel.Controls.Add(this.pictureBoxHelp);
             this.mainPanel.Controls.Add(this.label1);
@@ -60,9 +59,9 @@
             // buttonConfirm
             // 
             this.buttonConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(156)))), ((int)(((byte)(246)))));
-            this.buttonConfirm.Location = new System.Drawing.Point(148, 275);
+            this.buttonConfirm.Location = new System.Drawing.Point(129, 270);
             this.buttonConfirm.Name = "buttonConfirm";
-            this.buttonConfirm.Size = new System.Drawing.Size(178, 23);
+            this.buttonConfirm.Size = new System.Drawing.Size(178, 46);
             this.buttonConfirm.TabIndex = 17;
             this.buttonConfirm.Text = "Підтвердження заявки";
             this.buttonConfirm.UseVisualStyleBackColor = false;
@@ -82,7 +81,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(70, 206);
+            this.label1.Location = new System.Drawing.Point(27, 191);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(129, 23);
             this.label1.TabIndex = 2;
@@ -92,7 +91,7 @@
             // 
             this.comboBoxAccident.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAccident.FormattingEnabled = true;
-            this.comboBoxAccident.Location = new System.Drawing.Point(205, 206);
+            this.comboBoxAccident.Location = new System.Drawing.Point(162, 191);
             this.comboBoxAccident.MaxLength = 10;
             this.comboBoxAccident.Name = "comboBoxAccident";
             this.comboBoxAccident.Size = new System.Drawing.Size(121, 24);
@@ -106,7 +105,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(424, 128);
+            this.panel2.Size = new System.Drawing.Size(420, 128);
             this.panel2.TabIndex = 0;
             // 
             // closeButton
@@ -128,7 +127,7 @@
             this.labelPanel.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelPanel.Location = new System.Drawing.Point(0, 0);
             this.labelPanel.Name = "labelPanel";
-            this.labelPanel.Size = new System.Drawing.Size(424, 128);
+            this.labelPanel.Size = new System.Drawing.Size(420, 128);
             this.labelPanel.TabIndex = 0;
             this.labelPanel.Text = "Заява на усунення аварії";
             this.labelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -162,6 +161,5 @@
         private System.Windows.Forms.ComboBox comboBoxAccident;
         private System.Windows.Forms.PictureBox pictureBoxHelp;
         private System.Windows.Forms.Button buttonConfirm;
-        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

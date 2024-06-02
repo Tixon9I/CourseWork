@@ -20,7 +20,81 @@ namespace CourseWork
         {
             currentClientId = clientId;
             InitializeComponent();
+            InitializeButtons();
         }
+
+        private void InitializeButtons()
+        {
+            Button buttonPersonalInfo = new Button();
+            buttonPersonalInfo.Text = "Особиста інформація";
+            buttonPersonalInfo.Location = new Point(10, 10);
+            buttonPersonalInfo.Click += (sender, e) => LoadPersonalInfo();
+            this.Controls.Add(buttonPersonalInfo);
+
+            Button buttonConnectionRequests = new Button();
+            buttonConnectionRequests.Text = "Заявки на підключення";
+            buttonConnectionRequests.Location = new Point(150, 10);
+            buttonConnectionRequests.Click += (sender, e) => LoadConnectionRequests();
+            this.Controls.Add(buttonConnectionRequests);
+
+            Button buttonAccidentRequests = new Button();
+            buttonAccidentRequests.Text = "Заявки на усунення аварій";
+            buttonAccidentRequests.Location = new Point(300, 10);
+            buttonAccidentRequests.Click += (sender, e) => LoadAccidentRequests();
+            this.Controls.Add(buttonAccidentRequests);
+        }
+
+        private void LoadPersonalInfo()
+        {
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                connection.Open();
+                string query = "SELECT SurnameC AS Прізвище, NameC AS Ім'я, PatronymicC AS По батькові, PhoneC AS Телефон, AddressC AS Адреса FROM Client WHERE IdClient = @idClient";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                adapter.SelectCommand.Parameters.AddWithValue("@idClient", currentClientId);
+
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+                dataGridViewInfo.DataSource = dataTable;
+            }
+        }
+
+        private void LoadConnectionRequests()
+        {
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                connection.Open();
+                string query = "SELECT RequestDate AS Дата_заявки, RequestStatus AS Статус, Details AS Деталі FROM ConnectionRequest WHERE IdClient = @idClient";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                adapter.SelectCommand.Parameters.AddWithValue("@idClient", currentClientId);
+
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+                dataGridViewInfo.DataSource = dataTable;
+            }
+        }
+
+        private void LoadAccidentRequests()
+        {
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                connection.Open();
+                string query = "SELECT ReportDate AS Дата_заявки, ReportStatus AS Статус, Details AS Деталі FROM AccidentReport WHERE IdClient = @idClient";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                adapter.SelectCommand.Parameters.AddWithValue("@idClient", currentClientId);
+
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+                dataGridViewInfo.DataSource = dataTable;
+            }
+        }
+
 
         // Кастомізована кнопка закриття вікна
         private void closeButton_Click(object sender, EventArgs e)
@@ -61,9 +135,9 @@ namespace CourseWork
         {
             string details = "Підключення до системи водопостачання";
 
+            dataBase.openConnection();
             using (SqlConnection connection = dataBase.getConnection())
             {
-                connection.Open();
                 SqlTransaction transaction = connection.BeginTransaction();
 
                 try
@@ -76,17 +150,48 @@ namespace CourseWork
                     commandRequest.Parameters.AddWithValue("@details", details);
 
                     commandRequest.ExecuteNonQuery();
-
                     transaction.Commit();
 
                     MessageBox.Show("Заявка успішно створена!", "Успішно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    buttonConnectionRequest.Enabled = false; // Зробити кнопку недоступною після успішного створення заявки
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
                     MessageBox.Show("Не вдалося створити заявку! " + ex.Message, "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+                finally
+                {
+                    dataBase.closeConnection();
+                }
             }
+        }
+
+
+        // Метод для перевірки та налаштування доступності кнопки при завантаженні форми
+        private void CheckConnectionRequestStatus()
+        {
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                connection.Open();
+
+                // Перевіряємо, чи існує заявка на підключення для даного клієнта
+                string checkRequestQuery = "SELECT COUNT(*) FROM ConnectionRequest WHERE IdClient = @idClient";
+                SqlCommand checkCommand = new SqlCommand(checkRequestQuery, connection);
+                checkCommand.Parameters.AddWithValue("@idClient", currentClientId);
+
+                int requestCount = (int)checkCommand.ExecuteScalar();
+
+                if (requestCount > 0)
+                {
+                    buttonConnectionRequest.Enabled = false; // Зробити кнопку недоступною
+                }
+            }
+        }
+
+        private void UserForm_Load(object sender, EventArgs e)
+        {
+            CheckConnectionRequestStatus();
         }
 
         // Заявка на усунення аварії
@@ -104,10 +209,9 @@ namespace CourseWork
                         return;
                     }
 
-
+                    dataBase.openConnection();
                     using (SqlConnection connection = dataBase.getConnection())
                     {
-                        connection.Open();
                         SqlTransaction transaction = connection.BeginTransaction();
 
                         try
@@ -120,7 +224,6 @@ namespace CourseWork
                             commandRequest.Parameters.AddWithValue("@details", $"Деталі: {details}");
 
                             commandRequest.ExecuteNonQuery();
-
                             transaction.Commit();
 
                             MessageBox.Show("Заявка на аварію успішно створена!", "Успішно", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -129,6 +232,10 @@ namespace CourseWork
                         {
                             transaction.Rollback();
                             MessageBox.Show("Не вдалося створити заявку на аварію! " + ex.Message, "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        finally
+                        {
+                            dataBase.closeConnection();
                         }
                     }
                 }

@@ -18,6 +18,8 @@ namespace CourseWork
         {
             InitializeComponent();
 
+            StartPosition = FormStartPosition.CenterScreen;
+
             comboBoxAccident.Items.AddRange(new string[]
         {
             "Пошкодження водопроводу",
@@ -32,18 +34,18 @@ namespace CourseWork
             "Інша аварія"
         });
 
-            // Налаштовуємо ToolTip
-            toolTip1.ToolTipTitle = "Підказка";
-            toolTip1.UseFading = true;
-            toolTip1.UseAnimation = true;
-            toolTip1.IsBalloon = true;
-            toolTip1.ShowAlways = true;
-            toolTip1.AutoPopDelay = 5000;
-            toolTip1.InitialDelay = 1000;
-            toolTip1.ReshowDelay = 500;
+            //// Налаштовуємо ToolTip
+            //toolTip1.ToolTipTitle = "Підказка";
+            //toolTip1.UseFading = true;
+            //toolTip1.UseAnimation = true;
+            //toolTip1.IsBalloon = true;
+            //toolTip1.ShowAlways = true;
+            //toolTip1.AutoPopDelay = 5000;
+            //toolTip1.InitialDelay = 1000;
+            //toolTip1.ReshowDelay = 500;
 
-            // Встановлюємо текст для ToolTip
-            toolTip1.SetToolTip(pictureBoxHelp, "Всі ваші дані, автоматично підтягнені. Ввести лише потрібно деталі аварії.");
+            //// Встановлюємо текст для ToolTip
+            //toolTip1.SetToolTip(pictureBoxHelp, "Всі ваші дані, автоматично підтягнені. Ввести лише потрібно деталі аварії.");
         }
 
         // Кастомізована кнопка закриття вікна
