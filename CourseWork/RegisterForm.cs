@@ -434,7 +434,7 @@ namespace CourseWork
         // Метод для перевірки чи номер телефону містить не менше 7 цифр
         private bool IsPhoneValid(string phone)
         {
-            return Regex.IsMatch(phone, @"^\d{10}$");
+            return Regex.IsMatch(phone, @"^\d{7}$");
         }
        
         // Ввід лише цифр

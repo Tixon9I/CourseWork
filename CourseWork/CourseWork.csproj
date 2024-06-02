@@ -113,6 +113,12 @@
     <EmbeddedResource Include="AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Classes\ConnectionRequest.resx">
+      <DependentUpon>ConnectionRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Classes\EmergencyRepairRequest.resx">
+      <DependentUpon>EmergencyRepairRequest.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditPersonalForm.resx">
       <DependentUpon>EditPersonalForm.cs</DependentUpon>
     </EmbeddedResource>

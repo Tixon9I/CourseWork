@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.buttonRole = new System.Windows.Forms.Button();
             this.pictureBoxHidden = new System.Windows.Forms.PictureBox();
             this.pictureBoxLook = new System.Windows.Forms.PictureBox();
             this.linkRegister = new System.Windows.Forms.LinkLabel();
@@ -40,7 +41,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.closeButton = new System.Windows.Forms.Label();
             this.labelPanel = new System.Windows.Forms.Label();
-            this.buttonRole = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHidden)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLook)).BeginInit();
@@ -69,6 +69,20 @@
             this.mainPanel.TabIndex = 0;
             this.mainPanel.Enter += new System.EventHandler(this.textBoxUser_Enter);
             this.mainPanel.Leave += new System.EventHandler(this.textBoxUser_Leave);
+            // 
+            // buttonRole
+            // 
+            this.buttonRole.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonRole.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(119)))), ((int)(((byte)(192)))));
+            this.buttonRole.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonRole.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonRole.Location = new System.Drawing.Point(12, 325);
+            this.buttonRole.Name = "buttonRole";
+            this.buttonRole.Size = new System.Drawing.Size(138, 48);
+            this.buttonRole.TabIndex = 16;
+            this.buttonRole.Text = "Обрати роль";
+            this.buttonRole.UseVisualStyleBackColor = true;
+            this.buttonRole.Click += new System.EventHandler(this.buttonRole_Click);
             // 
             // pictureBoxHidden
             // 
@@ -203,20 +217,6 @@
             this.labelPanel.Leave += new System.EventHandler(this.textBoxUser_Leave);
             this.labelPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelPanel_MouseDown);
             this.labelPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.labelPanel_MouseMove);
-            // 
-            // buttonRole
-            // 
-            this.buttonRole.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonRole.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(119)))), ((int)(((byte)(192)))));
-            this.buttonRole.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRole.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonRole.Location = new System.Drawing.Point(12, 325);
-            this.buttonRole.Name = "buttonRole";
-            this.buttonRole.Size = new System.Drawing.Size(138, 48);
-            this.buttonRole.TabIndex = 16;
-            this.buttonRole.Text = "Обрати роль";
-            this.buttonRole.UseVisualStyleBackColor = true;
-            this.buttonRole.Click += new System.EventHandler(this.buttonRole_Click);
             // 
             // LoginForm
             // 
