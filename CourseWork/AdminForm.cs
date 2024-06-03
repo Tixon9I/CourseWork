@@ -58,171 +58,260 @@ namespace CourseWork
         // Показ записів з бд на DataGridView (Заявка на підключення)
         private void buttonConnectionRequestView_Click(object sender, EventArgs e)
         {
-            dataGridViewInfo.Columns.Clear(); // Очистити стовпці
-
-            CreateColumnsConnectionRequests();
-
             LoadConnectionRequests(dataGridViewInfo);
         }
 
         private void LoadConnectionRequests(DataGridView dgw)
         {
-            dgw.Rows.Clear();
-
             using (SqlConnection connection = dataBase.getConnection())
             {
                 dataBase.openConnection(connection);
                 string query = @"
-                    SELECT 
-                        CR.IdRequest, 
-                        CR.RequestDate, 
-                        CR.RequestStatus, 
-                        CR.Details,
-                        C.SurnameC, 
-                        C.NameC, 
-                        C.PatronymicC, 
-                        CR.PhoneC, 
-                        CR.AddressC 
-                    FROM 
-                        ConnectionRequest CR
-                    INNER JOIN 
-                        Client C ON CR.IdClient = C.IdClient";
+                SELECT 
+                    CR.IdRequest, 
+                    CR.RequestDate, 
+                    CR.RequestStatus, 
+                    CR.Details,
+                    CR.IdBrigade,
+                    CR.WorkDate,
+                    CR.SumRequest,
+                    C.IdClient,
+                    C.SurnameC, 
+                    C.NameC, 
+                    C.PatronymicC, 
+                    CR.PhoneC, 
+                    CR.AddressC 
+                FROM 
+                    ConnectionRequest CR
+                INNER JOIN 
+                    Client C ON CR.IdClient = C.IdClient";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
                 SqlDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    ReadSingleRowConnectionRequests(dgw, reader);
-                }
+                dgw.DataSource = null; // Очистимо дані, щоб видалити попередні записи
+                DataTable dataTable = new DataTable(); // Створимо новий DataTable для збереження результатів запиту
+                dataTable.Load(reader); // Завантажимо дані з SqlDataReader до DataTable
+                dgw.DataSource = dataTable; // Прив'яжемо DataTable до DataGridView
                 reader.Close();
                 dataBase.closeConnection(connection);
             }
         }
 
-
-        private void CreateColumnsConnectionRequests()
-        {
-            dataGridViewInfo.Columns.Clear(); // Очистити старі стовпці перед додаванням нових
-
-            dataGridViewInfo.Columns.Add("IdRequest", "Ідентифікатор заявки");
-            dataGridViewInfo.Columns.Add("RequestDate", "Дата та час заявки");
-            dataGridViewInfo.Columns.Add("RequestStatus", "Статус");
-            dataGridViewInfo.Columns.Add("Details", "Деталі");
-            dataGridViewInfo.Columns.Add("SurnameC", "Прізвище");
-            dataGridViewInfo.Columns.Add("NameC", "Ім'я");
-            dataGridViewInfo.Columns.Add("PatronymicC", "По-батькові");
-            dataGridViewInfo.Columns.Add("PhoneC", "Телефон");
-            dataGridViewInfo.Columns.Add("AddressC", "Адреса");
-        }
-
-        private void ReadSingleRowConnectionRequests(DataGridView dgw, IDataRecord record)
-        {
-            int idRequest = record.GetInt16(0); // IdRequest is SMALLINT, so use GetInt16
-            DateTime requestDate = record.GetDateTime(1);
-            string requestStatus = record.IsDBNull(2) ? string.Empty : record.GetString(2);
-            string details = record.IsDBNull(3) ? string.Empty : record.GetString(3);
-            string surnameC = record.IsDBNull(4) ? string.Empty : record.GetString(4);
-            string nameC = record.IsDBNull(5) ? string.Empty : record.GetString(5);
-            string patronymicC = record.IsDBNull(6) ? string.Empty : record.GetString(6);
-            string phoneC = record.IsDBNull(7) ? string.Empty : record.GetString(7);
-            string addressC = record.IsDBNull(8) ? string.Empty : record.GetString(8);
-
-            dgw.Rows.Add(idRequest, requestDate, requestStatus, details, surnameC, nameC, patronymicC, phoneC, addressC);
-        }
-
-
         // Показ записів з бд на DataGridView (Заявки на усунення аварії)
         private void buttonAccidentReportView_Click(object sender, EventArgs e)
         {
-            dataGridViewInfo.Columns.Clear(); // Очистити стовпці
-
-            CreateColumnsAccidentRequests();
-
+            
             LoadAccidentRequests(dataGridViewInfo);
         }
 
         private void LoadAccidentRequests(DataGridView dgw)
         {
-            dgw.Rows.Clear();
-
             using (SqlConnection connection = dataBase.getConnection())
             {
                 dataBase.openConnection(connection);
                 string query = @"
-                    SELECT
-                        AR.IdReport,
-                        AR.ReportDate, 
-                        AR.ReportStatus, 
-                        AR.Details,
-                        C.SurnameC, 
-                        C.NameC, 
-                        C.PatronymicC, 
-                        AR.PhoneC, 
-                        AR.AddressC 
-                    FROM 
-                         AccidentReport AR
-                    INNER JOIN 
-                        Client C ON AR.IdClient = C.IdClient";
+             SELECT
+                 AR.IdReport,
+                 AR.ReportDate, 
+                 AR.ReportStatus, 
+                 AR.Details,
+                 AR.IdBrigade,
+                 AR.WorkDate,
+                 AR.SumRequest,
+                 C.IdClient,
+                 C.SurnameC, 
+                 C.NameC, 
+                 C.PatronymicC, 
+                 AR.PhoneC, 
+                 AR.AddressC 
+             FROM 
+                  AccidentReport AR
+             INNER JOIN 
+                 Client C ON AR.IdClient = C.IdClient";
 
                 SqlCommand command = new SqlCommand(query, connection);
-                
-                SqlDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    ReadSingleRowAccidentRequests(dgw, reader);
-                }
-                reader.Close();
+                dgw.DataSource = null; // Очистимо дані, щоб видалити попередні записи
+                DataTable dataTable = new DataTable(); // Створимо новий DataTable для збереження результатів запиту
+                dataTable.Load(command.ExecuteReader()); // Завантажимо дані з SqlDataReader до DataTable
+                dgw.DataSource = dataTable; // Прив'яжемо DataTable до DataGridView
+
                 dataBase.closeConnection(connection);
             }
         }
 
-        private void CreateColumnsAccidentRequests()
-        {
-            dataGridViewInfo.Columns.Clear(); // Очистити старі стовпці перед додаванням нових
-
-            dataGridViewInfo.Columns.Add("IdReport", "Ідентифікатор заявки");
-            dataGridViewInfo.Columns.Add("ReportDate", "Дата та час заявки");
-            dataGridViewInfo.Columns.Add("ReportStatus", "Статус");
-            dataGridViewInfo.Columns.Add("Details", "Деталі");
-            dataGridViewInfo.Columns.Add("SurnameC", "Прізвище");
-            dataGridViewInfo.Columns.Add("NameC", "Ім'я");
-            dataGridViewInfo.Columns.Add("PatronymicC", "По-батькові");
-            dataGridViewInfo.Columns.Add("PhoneC", "Телефон");
-            dataGridViewInfo.Columns.Add("AddressC", "Адреса");
-        }
-
-        private void ReadSingleRowAccidentRequests(DataGridView dgw, IDataRecord record)
-        {
-            int idReport = record.GetInt16(0); // IdReport is SMALLINT, so use GetInt16
-            DateTime reportDate = record.GetDateTime(1);
-            string reportStatus = record.IsDBNull(2) ? string.Empty : record.GetString(2);
-            string details = record.IsDBNull(3) ? string.Empty : record.GetString(3);
-            string surnameC = record.IsDBNull(4) ? string.Empty : record.GetString(4);
-            string nameC = record.IsDBNull(5) ? string.Empty : record.GetString(5);
-            string patronymicC = record.IsDBNull(6) ? string.Empty : record.GetString(6);
-            string phoneC = record.IsDBNull(7) ? string.Empty : record.GetString(7);
-            string addressC = record.IsDBNull(8) ? string.Empty : record.GetString(8);
-
-            dgw.Rows.Add(idReport, reportDate, reportStatus, details, surnameC, nameC, patronymicC, phoneC, addressC);
-        }
-
         private void dataGridViewInfo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // Перевірте, чи було вибрано дійсний рядок
+            if (e.RowIndex >= 0)
             {
-                // Отримайте значення з обраного рядка
-                short idRequest = Convert.ToInt16(dataGridViewInfo.Rows[e.RowIndex].Cells["IdRequest"].Value);
-                DateTime requestDate = Convert.ToDateTime(dataGridViewInfo.Rows[e.RowIndex].Cells["RequestDate"].Value);
-                string requestStatus = dataGridViewInfo.Rows[e.RowIndex].Cells["RequestStatus"].Value.ToString();
-                string details = dataGridViewInfo.Rows[e.RowIndex].Cells["Details"].Value.ToString();
+                // Перевірка назви стовпця, щоб визначити, яка заявка вибрана
+                if (dataGridViewInfo.Columns[e.ColumnIndex].Name == "IdRequest")
+                {
+                    short idRequest = Convert.ToInt16(dataGridViewInfo.Rows[e.RowIndex].Cells["IdRequest"].Value);
+                    DateTime requestDate = Convert.ToDateTime(dataGridViewInfo.Rows[e.RowIndex].Cells["RequestDate"].Value);
+                    string requestStatus = dataGridViewInfo.Rows[e.RowIndex].Cells["RequestStatus"].Value.ToString();
+                    string details = dataGridViewInfo.Rows[e.RowIndex].Cells["Details"].Value.ToString();
 
-                // Відкрийте нову форму та передайте значення
-                ConnectionRequest requestDetailsForm = new ConnectionRequest(idRequest, requestDate, requestStatus, details);
-                requestDetailsForm.ShowDialog();
+                    ConnectionRequest requestDetailsForm = new ConnectionRequest(idRequest, requestDate, requestStatus, details);
+                    requestDetailsForm.ShowDialog();
+                }
+                else if (dataGridViewInfo.Columns[e.ColumnIndex].Name == "IdReport")
+                {
+                    // Тут отримайте дані іншої заявки і створіть новий об'єкт відповідного вікна
+                    short idReport = Convert.ToInt16(dataGridViewInfo.Rows[e.RowIndex].Cells["IdReport"].Value);
+                    DateTime reportDate = Convert.ToDateTime(dataGridViewInfo.Rows[e.RowIndex].Cells["ReportDate"].Value);
+                    string reportStatus = dataGridViewInfo.Rows[e.RowIndex].Cells["ReportStatus"].Value.ToString();
+                    string details = dataGridViewInfo.Rows[e.RowIndex].Cells["Details"].Value.ToString();
+
+                    EmergencyRepairRequest reportDetailsForm = new EmergencyRepairRequest(idReport, reportDate, reportStatus, details);
+                    reportDetailsForm.ShowDialog();
+                }
             }
         }
+
+        private void buttonPurchaseMaterial_Click(object sender, EventArgs e)
+        {
+            PurchaseMaterialsForm purchaseMaterialsForm = new PurchaseMaterialsForm();
+            purchaseMaterialsForm.ShowDialog();
+
+        }
+
+        private void buttonBill_Click(object sender, EventArgs e)
+        {
+            // Отримання всіх ідентифікаторів клієнтів з бази даних
+            List<short> clientIds = GetAllClientIds();
+
+            // Перевірка, чи є клієнти у базі даних
+            if (clientIds.Count == 0)
+            {
+                MessageBox.Show("Клієнти відсутні. Спочатку додайте клієнтів до бази даних.", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Початкова дата створення рахунку
+            DateTime billDate = DateTime.Now;
+
+            // Ціна за кубометр води
+            decimal pricePerCubicMeter = 4.5m;
+
+            // Отримання кількості використаних кубометрів води
+            decimal cubicMetersUsed = 50.0m;
+
+            // Статус рахунку
+            string billStatus = "Неоплачено";
+
+            // Прапорець, що вказує на те, чи було створено хоча б один рахунок
+            bool anyBillCreated = false;
+
+            // Додавання рахунку для кожного клієнта
+            foreach (short clientId in clientIds)
+            {
+                // Перевірка, чи існує рахунок для поточного клієнта або чи пройшло більше 30 днів з моменту створення останнього рахунку
+                if (!IsBillExistOrExpired(clientId))
+                {
+                    // Виклик методу додавання рахунку
+                    AddWaterBill(clientId, billDate, pricePerCubicMeter, cubicMetersUsed, billStatus);
+
+                    // Встановлення прапорця, що було створено рахунок
+                    anyBillCreated = true;
+                }
+            }
+
+            // Перевірка, чи було створено хоча б один рахунок
+            if (!anyBillCreated)
+            {
+                MessageBox.Show("Рахунки не були створені.", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Рахунки успішно створено!", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // Метод для додавання рахунку в базу даних для певного клієнта
+        private void AddWaterBill(short clientId, DateTime billDate, decimal pricePerCubicMeter, decimal cubicMetersUsed, string billStatus)
+        {
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                string query = @"
+         INSERT INTO WaterBill (IdClient, BillDate, PricePerCubicMeter, CubicMetersUsed, BillStatus)
+         VALUES (@IdClient, @BillDate, @PricePerCubicMeter, @CubicMetersUsed, @BillStatus)";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdClient", clientId);
+                command.Parameters.AddWithValue("@BillDate", billDate);
+                command.Parameters.AddWithValue("@PricePerCubicMeter", pricePerCubicMeter);
+                command.Parameters.AddWithValue("@CubicMetersUsed", cubicMetersUsed);
+                command.Parameters.AddWithValue("@BillStatus", billStatus);
+
+                dataBase.openConnection(connection);
+                command.ExecuteNonQuery();
+                dataBase.closeConnection(connection);
+            }
+        } 
+
+        // Метод для перевірки наявності рахунку для певного клієнта або перевірки, чи пройшло більше 30 днів з моменту створення останнього рахунку
+        private bool IsBillExistOrExpired(short clientId)
+        {
+            // SQL-запит для перевірки наявності рахунку для клієнта або отримання дати останнього рахунку
+            string query = "SELECT COUNT(*), MAX(BillDate) FROM WaterBill WHERE IdClient = @IdClient";
+
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdClient", clientId);
+                dataBase.openConnection(connection);
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                int count = 0;
+                DateTime? lastBillDate = null;
+
+                // Читання результатів запиту та встановлення значень змінних count та lastBillDate
+                if (reader.Read())
+                {
+                    count = reader.GetInt32(0);
+                    lastBillDate = reader.IsDBNull(1) ? (DateTime?)null : reader.GetDateTime(1);
+                }
+
+                reader.Close();
+                dataBase.closeConnection(connection);
+
+                // Якщо кількість рахунків більше 0 або пройшло менше 30 днів з моменту створення останнього рахунку, то повертається true
+                return count > 0 && (DateTime.Now - lastBillDate.Value).Days < 30;
+            }
+        }
+
+        // Метод для отримання всіх ідентифікаторів клієнтів з бази даних
+        private List<short> GetAllClientIds()
+        {
+            List<short> clientIds = new List<short>();
+
+            // SQL-запит для отримання всіх ідентифікаторів клієнтів
+            string query = "SELECT IdClient FROM Client";
+
+            // Виконання SQL-запиту
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                dataBase.openConnection(connection);
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                // Читання результатів запиту та додавання ідентифікаторів до списку
+                while (reader.Read())
+                {
+                    short clientId = reader.GetInt16(0);
+                    clientIds.Add(clientId);
+                }
+
+                reader.Close();
+                dataBase.closeConnection(connection);
+            }
+
+            return clientIds;
+        }
+
     }
 }

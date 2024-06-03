@@ -30,7 +30,7 @@
         {
             this.mainPanel = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonPay = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,7 +54,7 @@
             this.mainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(156)))), ((int)(((byte)(246)))));
             this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.mainPanel.Controls.Add(this.label4);
-            this.mainPanel.Controls.Add(this.button1);
+            this.mainPanel.Controls.Add(this.buttonPay);
             this.mainPanel.Controls.Add(this.label3);
             this.mainPanel.Controls.Add(this.label2);
             this.mainPanel.Controls.Add(this.label1);
@@ -83,14 +83,15 @@
             this.label4.TabIndex = 13;
             this.label4.Text = "Кнопки, для редагування даних та оплати";
             // 
-            // button1
+            // buttonPay
             // 
-            this.button1.Location = new System.Drawing.Point(832, 378);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(166, 56);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Оплата рахунків";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonPay.Location = new System.Drawing.Point(832, 378);
+            this.buttonPay.Name = "buttonPay";
+            this.buttonPay.Size = new System.Drawing.Size(166, 56);
+            this.buttonPay.TabIndex = 12;
+            this.buttonPay.Text = "Оплата рахунків";
+            this.buttonPay.UseVisualStyleBackColor = true;
+            this.buttonPay.Click += new System.EventHandler(this.buttonPay_Click);
             // 
             // label3
             // 
@@ -278,6 +279,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonPay;
     }
 }

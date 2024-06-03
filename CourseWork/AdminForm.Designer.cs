@@ -30,9 +30,9 @@
         {
             this.mainPanel = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonPurchaseMaterial = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonBill = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonAccidentReportView = new System.Windows.Forms.Button();
@@ -49,10 +49,11 @@
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(156)))), ((int)(((byte)(246)))));
+            this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.mainPanel.Controls.Add(this.label5);
-            this.mainPanel.Controls.Add(this.button2);
+            this.mainPanel.Controls.Add(this.buttonPurchaseMaterial);
             this.mainPanel.Controls.Add(this.label4);
-            this.mainPanel.Controls.Add(this.button1);
+            this.mainPanel.Controls.Add(this.buttonBill);
             this.mainPanel.Controls.Add(this.label3);
             this.mainPanel.Controls.Add(this.label1);
             this.mainPanel.Controls.Add(this.buttonAccidentReportView);
@@ -62,7 +63,7 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(1019, 645);
+            this.mainPanel.Size = new System.Drawing.Size(1048, 645);
             this.mainPanel.TabIndex = 3;
             // 
             // label5
@@ -76,14 +77,15 @@
             this.label5.TabIndex = 27;
             this.label5.Text = "Кнопка для закупівлі";
             // 
-            // button2
+            // buttonPurchaseMaterial
             // 
-            this.button2.Location = new System.Drawing.Point(841, 424);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(166, 56);
-            this.button2.TabIndex = 26;
-            this.button2.Text = "Закупівля матеріалів";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonPurchaseMaterial.Location = new System.Drawing.Point(841, 424);
+            this.buttonPurchaseMaterial.Name = "buttonPurchaseMaterial";
+            this.buttonPurchaseMaterial.Size = new System.Drawing.Size(166, 56);
+            this.buttonPurchaseMaterial.TabIndex = 26;
+            this.buttonPurchaseMaterial.Text = "Закупівля матеріалів";
+            this.buttonPurchaseMaterial.UseVisualStyleBackColor = true;
+            this.buttonPurchaseMaterial.Click += new System.EventHandler(this.buttonPurchaseMaterial_Click);
             // 
             // label4
             // 
@@ -96,14 +98,15 @@
             this.label4.TabIndex = 25;
             this.label4.Text = "Кнопка для сформування\r\n розрахунку за воду";
             // 
-            // button1
+            // buttonBill
             // 
-            this.button1.Location = new System.Drawing.Point(623, 424);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(166, 56);
-            this.button1.TabIndex = 24;
-            this.button1.Text = "Сформування рахунків";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonBill.Location = new System.Drawing.Point(623, 424);
+            this.buttonBill.Name = "buttonBill";
+            this.buttonBill.Size = new System.Drawing.Size(166, 56);
+            this.buttonBill.TabIndex = 24;
+            this.buttonBill.Text = "Сформування рахунків";
+            this.buttonBill.UseVisualStyleBackColor = true;
+            this.buttonBill.Click += new System.EventHandler(this.buttonBill_Click);
             // 
             // label3
             // 
@@ -170,7 +173,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1019, 128);
+            this.panel2.Size = new System.Drawing.Size(1044, 128);
             this.panel2.TabIndex = 0;
             // 
             // closeButton
@@ -192,7 +195,7 @@
             this.labelPanel.Font = new System.Drawing.Font("Arial", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelPanel.Location = new System.Drawing.Point(0, 0);
             this.labelPanel.Name = "labelPanel";
-            this.labelPanel.Size = new System.Drawing.Size(1019, 128);
+            this.labelPanel.Size = new System.Drawing.Size(1044, 128);
             this.labelPanel.TabIndex = 0;
             this.labelPanel.Text = "Середовище працівника";
             this.labelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -203,9 +206,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1019, 645);
+            this.ClientSize = new System.Drawing.Size(1048, 645);
             this.Controls.Add(this.mainPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AdminForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AdminForm";
             this.mainPanel.ResumeLayout(false);
             this.mainPanel.PerformLayout();
@@ -222,13 +227,13 @@
         private System.Windows.Forms.Label closeButton;
         private System.Windows.Forms.Label labelPanel;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonBill;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonAccidentReportView;
         private System.Windows.Forms.Button buttonConnectionRequestView;
         private System.Windows.Forms.DataGridView dataGridViewInfo;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonPurchaseMaterial;
     }
 }

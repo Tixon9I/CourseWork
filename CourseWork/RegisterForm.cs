@@ -446,6 +446,39 @@ namespace CourseWork
             
         }
 
+        // Обмеження введені цифр для таких полів як ім'я, прізвище та по-батькові
+
+        private void textBoxName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Перевірка, чи введений символ є буквою або керуючим символом (наприклад, Backspace)
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                // Заборонити введення символу
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxSurname_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Перевірка, чи введений символ є буквою або керуючим символом (наприклад, Backspace)
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                // Заборонити введення символу
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxPatronymic_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Перевірка, чи введений символ є буквою або керуючим символом (наприклад, Backspace)
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                // Заборонити введення символу
+                e.Handled = true;
+            }
+        }
+
+
         // Поверненнся до вікна авторизації
         private void buttonBackLogin_Click(object sender, EventArgs e)
         {

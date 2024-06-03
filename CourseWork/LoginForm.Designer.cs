@@ -52,6 +52,7 @@
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(156)))), ((int)(((byte)(246)))));
+            this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.mainPanel.Controls.Add(this.buttonRole);
             this.mainPanel.Controls.Add(this.pictureBoxHidden);
             this.mainPanel.Controls.Add(this.pictureBoxLook);
@@ -187,14 +188,14 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(447, 128);
+            this.panel2.Size = new System.Drawing.Size(443, 128);
             this.panel2.TabIndex = 0;
             // 
             // closeButton
             // 
             this.closeButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.closeButton.Font = new System.Drawing.Font("Arial Narrow", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.closeButton.Location = new System.Drawing.Point(416, 0);
+            this.closeButton.Location = new System.Drawing.Point(414, 0);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(28, 29);
             this.closeButton.TabIndex = 1;
@@ -209,7 +210,7 @@
             this.labelPanel.Font = new System.Drawing.Font("Arial", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelPanel.Location = new System.Drawing.Point(0, 0);
             this.labelPanel.Name = "labelPanel";
-            this.labelPanel.Size = new System.Drawing.Size(447, 128);
+            this.labelPanel.Size = new System.Drawing.Size(443, 128);
             this.labelPanel.TabIndex = 0;
             this.labelPanel.Text = "Авторизація";
             this.labelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

@@ -11,17 +11,18 @@ namespace CourseWork.Classes
     {
         private Database dataBase = new Database();
 
-        public List<(int MaterialId, int Quantity)> CheckMaterials(string requestType)
+        public List<(short MaterialId, string RequestType, int Quantity)> CheckMaterials(string requestType)
         {
-            List<(int MaterialId, int Quantity)> requiredMaterials = new List<(int MaterialId, int Quantity)>();
+            List<(short MaterialId, string RequestType, int Quantity)> requiredMaterials = new List<(short MaterialId, string RequestType, int Quantity)>();
 
             using (SqlConnection connection = dataBase.getConnection())
             {
                 dataBase.openConnection(connection);
                 string query = @"
-                        SELECT MaterialId, Quantity
-                        FROM RequestMaterials
-                        WHERE RequestType = @requestType";
+                SELECT m.IdMaterial, rm.RequestType, rm.Quantity
+                FROM Material m
+                INNER JOIN RequestMaterials rm ON m.IdMaterial = rm.MaterialId
+                WHERE rm.RequestType = @requestType";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@requestType", requestType);
@@ -29,9 +30,10 @@ namespace CourseWork.Classes
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    int materialId = Convert.ToInt16(reader["MaterialId"]);
+                    short materialId = Convert.ToInt16(reader["IdMaterial"]);
+                    string requestTypeFromDb = reader["RequestType"].ToString();
                     int quantity = Convert.ToInt16(reader["Quantity"]);
-                    requiredMaterials.Add((materialId, quantity));
+                    requiredMaterials.Add((materialId, requestTypeFromDb, quantity));
                 }
                 reader.Close();
                 dataBase.closeConnection(connection);
@@ -39,6 +41,5 @@ namespace CourseWork.Classes
 
             return requiredMaterials;
         }
-
     }
 }

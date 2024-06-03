@@ -9,7 +9,6 @@ namespace CourseWork.Classes
 {
     internal class Brigade
     {
-
         private Database dataBase = new Database();
         public int Id { get; set; }
         public DateTime DateCreation { get; set; }
@@ -24,53 +23,48 @@ namespace CourseWork.Classes
 
         public Brigade[] AssignBrigade(DateTime date)
         {
-            // Підключення до бази даних
+            List<Brigade> freeBrigades = new List<Brigade>();
+
             using (SqlConnection connection = dataBase.getConnection())
             {
                 dataBase.openConnection(connection);
-                // SQL-запит для отримання всіх бригад
+
                 string query = @"
-                SELECT IdBrigade, DateCreation
-                FROM Brigade";
+            SELECT IdBrigade, DateCreation
+            FROM Brigade";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    // Створення масиву для зберігання вільних бригад
-                    var freeBrigades = new List<Brigade>();
                     while (reader.Read())
                     {
-                        int id = reader.GetInt16(0);
+                        short id = reader.GetInt16(0);
                         DateTime dateCreation = reader.GetDateTime(1);
-                        
-                        // Перевірка, чи бригада не використовується на певну дату
+
                         if (!IsBrigadeUsedOnDate(id, date))
                         {
                             freeBrigades.Add(new Brigade(id, dateCreation));
                         }
                     }
-                    dataBase.closeConnection(connection);
-                    reader.Close();
-                    return freeBrigades.ToArray();
                 }
+
+                dataBase.closeConnection(connection);
             }
+
+            return freeBrigades.ToArray();
         }
 
-        private bool IsBrigadeUsedOnDate(int brigadeId, DateTime date)
+        private bool IsBrigadeUsedOnDate(short brigadeId, DateTime date)
         {
-            // SQL-запит для перевірки, чи бригада використовується на певну дату
             string query = @"
             SELECT COUNT(*)
             FROM (
-                SELECT IdBrigade
-                FROM ConnectionRequest
-                WHERE WorkDate = @date AND IdBrigade = @brigadeId
+                SELECT WorkDate, IdBrigade FROM ConnectionRequest
                 UNION ALL
-                SELECT IdBrigade
-                FROM AccidentReport
-                WHERE WorkDate = @date AND IdBrigade = @brigadeId
-            ) AS UsedBrigades";
+                SELECT WorkDate, IdBrigade FROM AccidentReport
+            ) AS CombinedRequests
+            WHERE WorkDate = @date AND IdBrigade = @brigadeId";
 
             using (SqlConnection connection = dataBase.getConnection())
             {
@@ -78,8 +72,16 @@ namespace CourseWork.Classes
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@date", date);
                 command.Parameters.AddWithValue("@brigadeId", brigadeId);
+
+                // Журналювання для перевірки параметрів
+                Console.WriteLine($"Checking if brigade {brigadeId} is used on date {date}");
+
                 int count = (int)command.ExecuteScalar();
                 dataBase.closeConnection(connection);
+
+                // Журналювання для перевірки результату
+                Console.WriteLine($"Brigade {brigadeId} usage count on {date}: {count}");
+
                 return count > 0;
             }
         }

@@ -46,6 +46,7 @@
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(156)))), ((int)(((byte)(246)))));
+            this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.mainPanel.Controls.Add(this.label1);
             this.mainPanel.Controls.Add(this.buttonEmployee);
             this.mainPanel.Controls.Add(this.buttonUser);
@@ -125,14 +126,14 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(429, 128);
+            this.panel2.Size = new System.Drawing.Size(425, 128);
             this.panel2.TabIndex = 0;
             // 
             // closeButton
             // 
             this.closeButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.closeButton.Font = new System.Drawing.Font("Arial Narrow", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.closeButton.Location = new System.Drawing.Point(403, 0);
+            this.closeButton.Location = new System.Drawing.Point(396, 0);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(28, 29);
             this.closeButton.TabIndex = 1;
@@ -147,7 +148,7 @@
             this.labelPanel.Font = new System.Drawing.Font("Arial", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelPanel.Location = new System.Drawing.Point(0, 0);
             this.labelPanel.Name = "labelPanel";
-            this.labelPanel.Size = new System.Drawing.Size(429, 128);
+            this.labelPanel.Size = new System.Drawing.Size(425, 128);
             this.labelPanel.TabIndex = 0;
             this.labelPanel.Text = "Вітаємо в системі водопостачання!";
             this.labelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

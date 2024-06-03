@@ -94,17 +94,11 @@ namespace CourseWork
         // Показ записів з бд на DataGridView (Інфо клієнта)
         private void buttonPersonalView_Click(object sender, EventArgs e)
         {
-            dataGridViewInfo.Columns.Clear(); // Очистити стовпці
-
-            CreateColumnsPersonalInfo();
-             
             LoadPersonalInfo(dataGridViewInfo);
         }
 
         private void LoadPersonalInfo(DataGridView dgw)
         {
-            dgw.Rows.Clear();
-
             using (SqlConnection connection = dataBase.getConnection())
             {
                 dataBase.openConnection(connection);
@@ -113,121 +107,86 @@ namespace CourseWork
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@idClient", currentClientId);
 
-                SqlDataReader reader = command.ExecuteReader();
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                DataTable dataTable = new DataTable(); // Створимо новий DataTable для збереження результатів запиту
+                adapter.Fill(dataTable); // Заповнимо DataTable даними з бази даних
 
-                while (reader.Read())
+                if (dataTable.Rows.Count > 0)
                 {
-                    ReadSingleRowPersonalInfo(dgw, reader);
+                    dgw.DataSource = dataTable; // Прив'яжемо DataTable до DataGridView
                 }
-                reader.Close();
+
                 dataBase.closeConnection(connection);
             }
-        }
-
-        private void CreateColumnsPersonalInfo()
-        {
-            dataGridViewInfo.Columns.Add("SurnameC", "Прізвище");
-            dataGridViewInfo.Columns.Add("NameC", "Ім'я");
-            dataGridViewInfo.Columns.Add("PatronymicC", "По-батькові");
-            dataGridViewInfo.Columns.Add("PhoneC", "Телефон");
-            dataGridViewInfo.Columns.Add("AddressC", "Адреса");
-           // dataGridViewInfo.Columns.Add("IsNew", String.Empty);
-        }
-
-        private void ReadSingleRowPersonalInfo(DataGridView dgw, IDataRecord record)
-        {
-            dgw.Rows.Add(record.GetString(0), record.GetString(1), record.GetString(2), record.GetString(3), record.GetString(4));
         }
 
         // Показ записів з бд на DataGridView (Заявка на підключення)
         private void buttonConnectionRequestView_Click(object sender, EventArgs e)
         {
-            dataGridViewInfo.Columns.Clear(); // Очистити стовпці
-            
-            CreateColumnsConnectionRequests();
-                
             LoadConnectionRequests(dataGridViewInfo);
         }
 
         private void LoadConnectionRequests(DataGridView dgw)
         {
-            dgw.Rows.Clear();
-
             using (SqlConnection connection = dataBase.getConnection())
             {
                 dataBase.openConnection(connection);
                 string query = @"
-            SELECT 
-                CR.RequestDate, 
-                CR.RequestStatus, 
-                CR.Details,
-                C.SurnameC, 
-                C.NameC, 
-                C.PatronymicC, 
-                CR.PhoneC, 
-                CR.AddressC 
-            FROM 
-                ConnectionRequest CR
-            INNER JOIN 
-                Client C ON CR.IdClient = C.IdClient
-            WHERE 
-                CR.IdClient = @idClient";
+                SELECT 
+                    CR.RequestDate, 
+                    CR.RequestStatus, 
+                    CR.Details,
+                    CR.IdBrigade,
+                    CR.WorkDate,
+                    CR.SumRequest,
+                    C.SurnameC, 
+                    C.NameC, 
+                    C.PatronymicC, 
+                    CR.PhoneC, 
+                    CR.AddressC 
+                FROM 
+                    ConnectionRequest CR
+                INNER JOIN 
+                    Client C ON CR.IdClient = C.IdClient
+                WHERE 
+                    CR.IdClient = @idClient";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@idClient", currentClientId);
 
                 SqlDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    ReadSingleRowConnectionRequests(dgw, reader);
-                }
+                dgw.DataSource = null; // Очистимо дані, щоб видалити попередні записи
+                DataTable dataTable = new DataTable(); // Створимо новий DataTable для збереження результатів запиту
+                dataTable.Load(reader); // Завантажимо дані з SqlDataReader до DataTable
+                dgw.DataSource = dataTable; // Прив'яжемо DataTable до DataGridView
                 reader.Close();
                 dataBase.closeConnection(connection);
             }
         }
 
-        private void CreateColumnsConnectionRequests()
-        {
-            dataGridViewInfo.Columns.Clear(); // Очистити старі стовпці перед додаванням нових
-
-            dataGridViewInfo.Columns.Add("RequestDate", "Дата та час заявки");
-            dataGridViewInfo.Columns.Add("RequestStatus", "Статус");
-            dataGridViewInfo.Columns.Add("Details", "Деталі");
-            dataGridViewInfo.Columns.Add("SurnameC", "Прізвище");
-            dataGridViewInfo.Columns.Add("NameC", "Ім'я");
-            dataGridViewInfo.Columns.Add("PatronymicC", "По-батькові");
-            dataGridViewInfo.Columns.Add("PhoneC", "Телефон");
-            dataGridViewInfo.Columns.Add("AddressC", "Адреса");
-        }
-
-        private void ReadSingleRowConnectionRequests(DataGridView dgw, IDataRecord record)
-        {
-            dgw.Rows.Add(record.GetDateTime(0), record.GetString(1), record.GetString(2), record.GetString(3), record.GetString(4), record.GetString(5), record.GetString(6), record.GetString(7));
-        }
-
         // Показ записів з бд на DataGridView (Заявки на усунення аварії)
         private void buttonAccidentReportView_Click(object sender, EventArgs e)
         {
-            dataGridViewInfo.Columns.Clear(); // Очистити стовпці
-
-            CreateColumnsAccidentRequests();
-
+            
             LoadAccidentRequests(dataGridViewInfo);
         }
 
         private void LoadAccidentRequests(DataGridView dgw)
         {
-            dgw.Rows.Clear();
+            DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = dataBase.getConnection())
             {
-                dataBase.openConnection(connection);
+                connection.Open();
                 string query = @"
             SELECT 
                 AR.ReportDate, 
                 AR.ReportStatus, 
                 AR.Details,
+                AR.IdBrigade,
+                AR.WorkDate,
+                AR.SumRequest,
                 C.SurnameC, 
                 C.NameC, 
                 C.PatronymicC, 
@@ -243,34 +202,11 @@ namespace CourseWork
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@idClient", currentClientId);
 
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    ReadSingleRowAccidentRequests(dgw, reader);
-                }
-                reader.Close();
-                dataBase.closeConnection(connection);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(dataTable);
             }
-        }
 
-        private void CreateColumnsAccidentRequests()
-        {
-            dataGridViewInfo.Columns.Clear(); // Очистити старі стовпці перед додаванням нових
-
-            dataGridViewInfo.Columns.Add("ReportDate", "Дата та час заявки");
-            dataGridViewInfo.Columns.Add("ReportStatus", "Статус");
-            dataGridViewInfo.Columns.Add("Details", "Деталі");
-            dataGridViewInfo.Columns.Add("SurnameC", "Прізвище");
-            dataGridViewInfo.Columns.Add("NameC", "Ім'я");
-            dataGridViewInfo.Columns.Add("PatronymicC", "По-батькові");
-            dataGridViewInfo.Columns.Add("PhoneC", "Телефон");
-            dataGridViewInfo.Columns.Add("AddressC", "Адреса");
-        }
-
-        private void ReadSingleRowAccidentRequests(DataGridView dgw, IDataRecord record)
-        {
-            dgw.Rows.Add(record.GetDateTime(0), record.GetString(1), record.GetString(2), record.GetString(3), record.GetString(4), record.GetString(5), record.GetString(6), record.GetString(7));
+            dgw.DataSource = dataTable;
         }
 
         // Кастомізована кнопка закриття вікна
@@ -367,8 +303,6 @@ namespace CourseWork
                 }
             }
         }
-
-
 
         // Метод для перевірки та налаштування доступності кнопки при завантаженні форми
         private void CheckConnectionRequestStatus()
@@ -491,6 +425,54 @@ namespace CourseWork
 
                 return true;
             }
+        }
+
+        private void buttonPay_Click(object sender, EventArgs e)
+        {
+            DateTime paymentDate = DateTime.Now;
+            bool success = UpdateUnpaidBillsForClient(currentClientId, paymentDate);
+
+            if (success)
+            {
+                MessageBox.Show("Рахунки успішно оплачено!", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Рахунків для оплати не знайдено.", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private bool UpdateUnpaidBillsForClient(int clientId, DateTime paymentDate)
+        {
+            bool success = false;
+
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                string query = @"
+            UPDATE WaterBill
+            SET 
+                DueDate = @PaymentDate,
+                BillStatus = 'Оплачено'
+            WHERE 
+                IdClient = @ClientId
+                AND BillStatus = 'Неоплачено'";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@PaymentDate", paymentDate);
+                command.Parameters.AddWithValue("@ClientId", clientId);
+
+                dataBase.openConnection(connection);
+                int rowsAffected = command.ExecuteNonQuery();
+                dataBase.closeConnection(connection);
+
+                // Перевірка, чи були оновлені рядки
+                if (rowsAffected > 0)
+                {
+                    success = true;
+                }
+            }
+
+            return success;
         }
 
     }

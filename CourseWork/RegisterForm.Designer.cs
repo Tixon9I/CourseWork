@@ -64,6 +64,7 @@
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(156)))), ((int)(((byte)(246)))));
+            this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.mainPanel.Controls.Add(this.comboBoxAddress);
             this.mainPanel.Controls.Add(this.comboBoxPhone);
             this.mainPanel.Controls.Add(this.label4);
@@ -245,6 +246,7 @@
             this.textBoxPatronymic.Size = new System.Drawing.Size(205, 38);
             this.textBoxPatronymic.TabIndex = 8;
             this.textBoxPatronymic.Enter += new System.EventHandler(this.textBoxPatronymic_Enter);
+            this.textBoxPatronymic.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPatronymic_KeyPress);
             this.textBoxPatronymic.Leave += new System.EventHandler(this.textBoxPatronymic_Leave);
             // 
             // textBoxSurname
@@ -258,6 +260,7 @@
             this.textBoxSurname.Size = new System.Drawing.Size(205, 38);
             this.textBoxSurname.TabIndex = 7;
             this.textBoxSurname.Enter += new System.EventHandler(this.textBoxSurname_Enter);
+            this.textBoxSurname.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSurname_KeyPress);
             this.textBoxSurname.Leave += new System.EventHandler(this.textBoxSurname_Leave);
             // 
             // textBoxName
@@ -271,6 +274,7 @@
             this.textBoxName.Size = new System.Drawing.Size(205, 38);
             this.textBoxName.TabIndex = 6;
             this.textBoxName.Enter += new System.EventHandler(this.textBoxName_Enter);
+            this.textBoxName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxName_KeyPress);
             this.textBoxName.Leave += new System.EventHandler(this.textBoxName_Leave);
             // 
             // buttonRegister
@@ -341,14 +345,14 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(800, 128);
+            this.panel2.Size = new System.Drawing.Size(796, 128);
             this.panel2.TabIndex = 0;
             // 
             // closeButton
             // 
             this.closeButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.closeButton.Font = new System.Drawing.Font("Arial Narrow", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.closeButton.Location = new System.Drawing.Point(772, 0);
+            this.closeButton.Location = new System.Drawing.Point(767, 0);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(28, 29);
             this.closeButton.TabIndex = 1;
@@ -363,7 +367,7 @@
             this.labelPanel.Font = new System.Drawing.Font("Arial", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelPanel.Location = new System.Drawing.Point(0, 0);
             this.labelPanel.Name = "labelPanel";
-            this.labelPanel.Size = new System.Drawing.Size(800, 128);
+            this.labelPanel.Size = new System.Drawing.Size(796, 128);
             this.labelPanel.TabIndex = 0;
             this.labelPanel.Text = "Реєстрація";
             this.labelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

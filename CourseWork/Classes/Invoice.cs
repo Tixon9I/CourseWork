@@ -9,13 +9,15 @@ namespace CourseWork.Classes
 {
     internal class Invoice
     {
-        public static decimal GetFixedAmountForRequestType(string requestType)
+        private Database dataBase = new Database();
+
+        public decimal GetAmountForRequestType(string requestType)
         {
             decimal fixedAmount = 0;
 
-            using (SqlConnection connection = new SqlConnection("your_connection_string"))
+            using (SqlConnection connection = dataBase.getConnection())
             {
-                connection.Open();
+                dataBase.openConnection(connection);
                 string query = @"
                 SELECT Amount
                 FROM FixedAmountPerRequestType
@@ -29,14 +31,11 @@ namespace CourseWork.Classes
                 {
                     fixedAmount = Convert.ToDecimal(result);
                 }
+                
+                dataBase.closeConnection(connection);
             }
 
             return fixedAmount;
-        }
-
-        public static void SaveTotalAmount(int requestId, decimal totalAmount)
-        {
-            // Запис суми не потрібно, оскільки вона фіксована для кожного типу заявки
         }
     }
 }
