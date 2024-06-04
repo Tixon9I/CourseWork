@@ -257,7 +257,7 @@ namespace CourseWork.Classes
                 string requestType = selectedMaterial.RequestType;
                 int quantity = selectedMaterial.Quantity;
                 DateTime writeOffDate = dateTimePickerDate.Value.Date.Add(dateTimePickerTime.Value.TimeOfDay);
-                short idRequest = _idRequest; // Використовується з глобальної змінної
+                short idRequest = _idRequest;
 
                 WriteOffMaterials(materialId, requestType, quantity, writeOffDate, idRequest);
 

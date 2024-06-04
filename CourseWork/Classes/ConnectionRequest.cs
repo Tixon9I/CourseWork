@@ -108,7 +108,7 @@ namespace CourseWork.Classes
 
         private void ConnectionRequest_Load(object sender, EventArgs e)
         {
-            string requestType = "Підключення до системи";
+            string requestType = "Підключення до системи водопостачання";
 
             selectedMaterials = material.CheckMaterials(requestType);
 

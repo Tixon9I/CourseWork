@@ -185,6 +185,12 @@ namespace CourseWork
                     string requestStatus = dataGridViewInfo.Rows[e.RowIndex].Cells["RequestStatus"].Value.ToString();
                     string details = dataGridViewInfo.Rows[e.RowIndex].Cells["Details"].Value.ToString();
 
+                    if (requestStatus.Equals("Оплачено"))
+                    {
+                        MessageBox.Show("Редагування цієї заявки не дозволено, оскільки статус 'Оплачено'.", "Повідомлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
                     ConnectionRequest requestDetailsForm = new ConnectionRequest(idRequest, requestDate, requestStatus, details);
                     requestDetailsForm.ShowDialog();
                 }
@@ -195,11 +201,18 @@ namespace CourseWork
                     string reportStatus = dataGridViewInfo.Rows[e.RowIndex].Cells["ReportStatus"].Value.ToString();
                     string details = dataGridViewInfo.Rows[e.RowIndex].Cells["Details"].Value.ToString();
 
+                    if (reportStatus.Equals("Оплачено"))
+                    {
+                        MessageBox.Show("Редагування цієї заявки не дозволено, оскільки статус 'Оплачено'.", "Повідомлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
                     EmergencyRepairRequest reportDetailsForm = new EmergencyRepairRequest(idReport, reportDate, reportStatus, details);
                     reportDetailsForm.ShowDialog();
                 }
             }
         }
+
 
         // Закупівля матеріалів
         private void buttonPurchaseMaterial_Click(object sender, EventArgs e)
@@ -272,8 +285,8 @@ namespace CourseWork
             using (SqlConnection connection = dataBase.getConnection())
             {
                 string query = @"
- INSERT INTO WaterBill (IdClient, BillDate, PricePerCubicMeter, CubicMetersUsed, BillStatus)
- VALUES (@IdClient, @BillDate, @PricePerCubicMeter, @CubicMetersUsed, @BillStatus)";
+                 INSERT INTO WaterBill (IdClient, BillDate, PricePerCubicMeter, CubicMetersUsed, BillStatus)
+                 VALUES (@IdClient, @BillDate, @PricePerCubicMeter, @CubicMetersUsed, @BillStatus)";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@IdClient", clientId);
                 command.Parameters.AddWithValue("@BillDate", billDate);
