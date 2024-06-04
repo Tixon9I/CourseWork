@@ -113,12 +113,12 @@
             this.linkRegister.DisabledLinkColor = System.Drawing.Color.Navy;
             this.linkRegister.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.linkRegister.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(119)))), ((int)(((byte)(192)))));
-            this.linkRegister.Location = new System.Drawing.Point(168, 399);
+            this.linkRegister.Location = new System.Drawing.Point(169, 399);
             this.linkRegister.Name = "linkRegister";
-            this.linkRegister.Size = new System.Drawing.Size(158, 17);
+            this.linkRegister.Size = new System.Drawing.Size(166, 17);
             this.linkRegister.TabIndex = 6;
             this.linkRegister.TabStop = true;
-            this.linkRegister.Text = "Досі не авторизовані?";
+            this.linkRegister.Text = "Досі не зареєстровані?";
             this.linkRegister.VisitedLinkColor = System.Drawing.Color.Blue;
             this.linkRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRegister_LinkClicked);
             // 

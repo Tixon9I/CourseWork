@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonPay = new System.Windows.Forms.Button();
@@ -44,6 +45,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.closeButton = new System.Windows.Forms.Label();
             this.labelPanel = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInfo)).BeginInit();
             this.panel2.SuspendLayout();
@@ -203,6 +205,7 @@
             this.buttonConnectionRequest.Size = new System.Drawing.Size(168, 85);
             this.buttonConnectionRequest.TabIndex = 2;
             this.buttonConnectionRequest.Text = "Заявка на підключення до системи водопостачання";
+            this.toolTip1.SetToolTip(this.buttonConnectionRequest, "Примітка:\r\nВсі ваші данні автоматично\r\nпідтягнуться до заяви");
             this.buttonConnectionRequest.UseVisualStyleBackColor = false;
             this.buttonConnectionRequest.Click += new System.EventHandler(this.buttonConnectionRequest_Click);
             // 
@@ -280,5 +283,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonPay;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel2 = new System.Windows.Forms.Panel();
             this.closeButton = new System.Windows.Forms.Label();
             this.labelPanel = new System.Windows.Forms.Label();
@@ -41,8 +42,11 @@
             this.comboBoxCountMaterial = new System.Windows.Forms.ComboBox();
             this.comboBoxMaterial = new System.Windows.Forms.ComboBox();
             this.buttonPurchase = new System.Windows.Forms.Button();
+            this.pictureBoxHelp = new System.Windows.Forms.PictureBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel2.SuspendLayout();
             this.mainPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHelp)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -86,6 +90,7 @@
             // 
             this.mainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(156)))), ((int)(((byte)(246)))));
             this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.mainPanel.Controls.Add(this.pictureBoxHelp);
             this.mainPanel.Controls.Add(this.label4);
             this.mainPanel.Controls.Add(this.label3);
             this.mainPanel.Controls.Add(this.label2);
@@ -190,6 +195,18 @@
             this.buttonPurchase.UseVisualStyleBackColor = false;
             this.buttonPurchase.Click += new System.EventHandler(this.buttonPurchase_Click);
             // 
+            // pictureBoxHelp
+            // 
+            this.pictureBoxHelp.Image = global::CourseWork.Properties.Resources.help;
+            this.pictureBoxHelp.Location = new System.Drawing.Point(458, 134);
+            this.pictureBoxHelp.Name = "pictureBoxHelp";
+            this.pictureBoxHelp.Size = new System.Drawing.Size(27, 28);
+            this.pictureBoxHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxHelp.TabIndex = 17;
+            this.pictureBoxHelp.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBoxHelp, "Примітка:\r\nВи можете купувати матеріали\r\nдля виконання послуг клієнтів.\r\nОднакові" +
+        " закупівлі (назва та тип) не можуть\r\nбути придбані декілька разів!");
+            // 
             // PurchaseMaterialsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -203,6 +220,7 @@
             this.panel2.ResumeLayout(false);
             this.mainPanel.ResumeLayout(false);
             this.mainPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHelp)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -222,5 +240,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBoxHelp;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

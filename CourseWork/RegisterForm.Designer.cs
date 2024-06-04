@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.comboBoxAddress = new System.Windows.Forms.ComboBox();
             this.comboBoxPhone = new System.Windows.Forms.ComboBox();
@@ -53,6 +54,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.closeButton = new System.Windows.Forms.Label();
             this.labelPanel = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHidden)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLook)).BeginInit();
@@ -96,22 +99,25 @@
             // comboBoxAddress
             // 
             this.comboBoxAddress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAddress.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBoxAddress.FormattingEnabled = true;
             this.comboBoxAddress.Location = new System.Drawing.Point(565, 489);
             this.comboBoxAddress.MaxLength = 10;
             this.comboBoxAddress.Name = "comboBoxAddress";
-            this.comboBoxAddress.Size = new System.Drawing.Size(205, 24);
+            this.comboBoxAddress.Size = new System.Drawing.Size(205, 31);
             this.comboBoxAddress.TabIndex = 22;
             // 
             // comboBoxPhone
             // 
             this.comboBoxPhone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPhone.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBoxPhone.FormattingEnabled = true;
-            this.comboBoxPhone.Location = new System.Drawing.Point(565, 402);
+            this.comboBoxPhone.Location = new System.Drawing.Point(565, 397);
             this.comboBoxPhone.MaxLength = 12;
             this.comboBoxPhone.Name = "comboBoxPhone";
-            this.comboBoxPhone.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxPhone.Size = new System.Drawing.Size(121, 31);
             this.comboBoxPhone.TabIndex = 21;
+            this.toolTip1.SetToolTip(this.comboBoxPhone, "Код оператора (перші три цифри)");
             // 
             // label4
             // 
@@ -159,12 +165,13 @@
             // 
             this.textBoxPhone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPhone.Font = new System.Drawing.Font("Arial Narrow", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxPhone.Location = new System.Drawing.Point(565, 432);
+            this.textBoxPhone.Location = new System.Drawing.Point(565, 442);
             this.textBoxPhone.MaxLength = 7;
             this.textBoxPhone.Multiline = true;
             this.textBoxPhone.Name = "textBoxPhone";
             this.textBoxPhone.Size = new System.Drawing.Size(205, 38);
             this.textBoxPhone.TabIndex = 15;
+            this.toolTip2.SetToolTip(this.textBoxPhone, "Номер абонента (цифри,\r\nщо йдуть після коду оператора)");
             this.textBoxPhone.TextChanged += new System.EventHandler(this.textBoxPhone_TextChanged);
             this.textBoxPhone.Enter += new System.EventHandler(this.textBoxPhone_Enter);
             this.textBoxPhone.Leave += new System.EventHandler(this.textBoxPhone_Leave);
@@ -423,5 +430,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxPhone;
         private System.Windows.Forms.ComboBox comboBoxAddress;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip toolTip2;
     }
 }

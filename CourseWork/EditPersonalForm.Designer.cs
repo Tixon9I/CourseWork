@@ -28,17 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.pictureBoxHelp = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.closeButton = new System.Windows.Forms.Label();
-            this.labelPanel = new System.Windows.Forms.Label();
             this.comboBoxAddress = new System.Windows.Forms.ComboBox();
             this.comboBoxPhone = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxPhone = new System.Windows.Forms.TextBox();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.pictureBoxHelp = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.closeButton = new System.Windows.Forms.Label();
+            this.labelPanel = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip4 = new System.Windows.Forms.ToolTip(this.components);
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHelp)).BeginInit();
             this.panel2.SuspendLayout();
@@ -62,6 +67,64 @@
             this.mainPanel.Size = new System.Drawing.Size(448, 450);
             this.mainPanel.TabIndex = 4;
             // 
+            // comboBoxAddress
+            // 
+            this.comboBoxAddress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAddress.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBoxAddress.FormattingEnabled = true;
+            this.comboBoxAddress.Location = new System.Drawing.Point(229, 275);
+            this.comboBoxAddress.MaxLength = 10;
+            this.comboBoxAddress.Name = "comboBoxAddress";
+            this.comboBoxAddress.Size = new System.Drawing.Size(205, 31);
+            this.comboBoxAddress.TabIndex = 27;
+            // 
+            // comboBoxPhone
+            // 
+            this.comboBoxPhone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPhone.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBoxPhone.FormattingEnabled = true;
+            this.comboBoxPhone.Location = new System.Drawing.Point(229, 188);
+            this.comboBoxPhone.MaxLength = 12;
+            this.comboBoxPhone.Name = "comboBoxPhone";
+            this.comboBoxPhone.Size = new System.Drawing.Size(121, 31);
+            this.comboBoxPhone.TabIndex = 26;
+            this.toolTip2.SetToolTip(this.comboBoxPhone, "Код оператора (перші цифри телефону)");
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(12, 279);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(192, 23);
+            this.label2.TabIndex = 25;
+            this.label2.Text = "Адреса проживання";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(63, 215);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(147, 23);
+            this.label3.TabIndex = 24;
+            this.label3.Text = "Ном. телефону";
+            // 
+            // textBoxPhone
+            // 
+            this.textBoxPhone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxPhone.Font = new System.Drawing.Font("Arial Narrow", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxPhone.Location = new System.Drawing.Point(229, 228);
+            this.textBoxPhone.MaxLength = 7;
+            this.textBoxPhone.Multiline = true;
+            this.textBoxPhone.Name = "textBoxPhone";
+            this.textBoxPhone.Size = new System.Drawing.Size(205, 38);
+            this.textBoxPhone.TabIndex = 23;
+            this.toolTip3.SetToolTip(this.textBoxPhone, "Номер абонента (цифри, \r\nщо йдуть після коду оператора)");
+            this.textBoxPhone.TextChanged += new System.EventHandler(this.textBoxPhone_TextChanged);
+            this.textBoxPhone.Enter += new System.EventHandler(this.textBoxPhone_Enter);
+            this.textBoxPhone.Leave += new System.EventHandler(this.textBoxPhone_Leave);
+            // 
             // buttonSave
             // 
             this.buttonSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(156)))), ((int)(((byte)(246)))));
@@ -71,6 +134,7 @@
             this.buttonSave.Size = new System.Drawing.Size(178, 46);
             this.buttonSave.TabIndex = 17;
             this.buttonSave.Text = "Редагувати";
+            this.toolTip4.SetToolTip(this.buttonSave, "Якщо готові відредагувати - нажміть кнопку");
             this.buttonSave.UseVisualStyleBackColor = false;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
@@ -83,6 +147,9 @@
             this.pictureBoxHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxHelp.TabIndex = 16;
             this.pictureBoxHelp.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBoxHelp, "Примітка:\r\nРедагувати ви можете лише номер телефону \r\nта адресу в разі потреби, \r" +
+        "\nякщо потрібно лише змінити щось одне, \r\nто змініть його та залишіть інше поле б" +
+        "ез змін");
             // 
             // panel2
             // 
@@ -121,60 +188,6 @@
             this.labelPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelPanel_MouseDown);
             this.labelPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.labelPanel_MouseMove);
             // 
-            // comboBoxAddress
-            // 
-            this.comboBoxAddress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAddress.FormattingEnabled = true;
-            this.comboBoxAddress.Location = new System.Drawing.Point(229, 282);
-            this.comboBoxAddress.MaxLength = 10;
-            this.comboBoxAddress.Name = "comboBoxAddress";
-            this.comboBoxAddress.Size = new System.Drawing.Size(205, 24);
-            this.comboBoxAddress.TabIndex = 27;
-            // 
-            // comboBoxPhone
-            // 
-            this.comboBoxPhone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPhone.FormattingEnabled = true;
-            this.comboBoxPhone.Location = new System.Drawing.Point(229, 195);
-            this.comboBoxPhone.MaxLength = 12;
-            this.comboBoxPhone.Name = "comboBoxPhone";
-            this.comboBoxPhone.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxPhone.TabIndex = 26;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(12, 279);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(192, 23);
-            this.label2.TabIndex = 25;
-            this.label2.Text = "Адреса проживання";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(63, 215);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(147, 23);
-            this.label3.TabIndex = 24;
-            this.label3.Text = "Ном. телефону";
-            // 
-            // textBoxPhone
-            // 
-            this.textBoxPhone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxPhone.Font = new System.Drawing.Font("Arial Narrow", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxPhone.Location = new System.Drawing.Point(229, 225);
-            this.textBoxPhone.MaxLength = 7;
-            this.textBoxPhone.Multiline = true;
-            this.textBoxPhone.Name = "textBoxPhone";
-            this.textBoxPhone.Size = new System.Drawing.Size(205, 38);
-            this.textBoxPhone.TabIndex = 23;
-            this.textBoxPhone.TextChanged += new System.EventHandler(this.textBoxPhone_TextChanged);
-            this.textBoxPhone.Enter += new System.EventHandler(this.textBoxPhone_Enter);
-            this.textBoxPhone.Leave += new System.EventHandler(this.textBoxPhone_Leave);
-            // 
             // EditPersonalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -207,5 +220,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxPhone;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip toolTip2;
+        private System.Windows.Forms.ToolTip toolTip3;
+        private System.Windows.Forms.ToolTip toolTip4;
     }
 }

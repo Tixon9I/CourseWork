@@ -440,10 +440,14 @@ namespace CourseWork
         // Ввід лише цифр
         private void textBoxPhone_TextChanged(object sender, EventArgs e)
         {
-            string text = textBoxPhone.Text;
-            textBoxPhone.ForeColor = Color.Black;
-            textBoxPhone.Text = Regex.Replace(text, "[^0-9]", ""); // Видаляємо всі символи, які не є цифрами
-            
+
+            if (textBoxPhone.ForeColor != Color.Gray)
+            {
+                string text = textBoxPhone.Text;
+                textBoxPhone.Text = Regex.Replace(text, "[^0-9]", ""); // Видаляємо всі символи, які не є цифрами
+                textBoxPhone.SelectionStart = textBoxPhone.Text.Length; // Повертаємо курсор в кінець тексту
+            }
+
         }
 
         // Обмеження введені цифр для таких полів як ім'я, прізвище та по-батькові

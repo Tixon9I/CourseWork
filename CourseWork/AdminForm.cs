@@ -172,6 +172,7 @@ namespace CourseWork
             }
         }
 
+        // Виклик форми редагування даних
         private void dataGridViewInfo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -200,6 +201,7 @@ namespace CourseWork
             }
         }
 
+        // Закупівля матеріалів
         private void buttonPurchaseMaterial_Click(object sender, EventArgs e)
         {
             PurchaseMaterialsForm purchaseMaterialsForm = new PurchaseMaterialsForm();
@@ -207,6 +209,7 @@ namespace CourseWork
 
         }
 
+        // Сформування рахунків клієнтам
         private void buttonBill_Click(object sender, EventArgs e)
         {
             // Отримання всіх ідентифікаторів клієнтів з бази даних
@@ -340,7 +343,6 @@ namespace CourseWork
             }
         }
 
-
         // Метод для отримання всіх ідентифікаторів клієнтів з бази даних
         private List<short> GetAllClientIds()
         {
@@ -371,5 +373,357 @@ namespace CourseWork
             return clientIds;
         }
 
+        // Запит 1
+        private void buttonLoadClientRequests_Click(object sender, EventArgs e)
+        {
+            LoadClientRequests(dataGridViewInfo);
+        }
+
+        private void LoadClientRequests(DataGridView dgw)
+        {
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                dataBase.openConnection(connection);
+                string query = @"
+        SELECT 
+            C.SurnameC, C.NameC, C.PatronymicC, 
+            CR.RequestDate, CR.RequestStatus, 
+            B.DateCreation
+        FROM 
+            Client C
+            JOIN ConnectionRequest CR ON C.IdClient = CR.IdClient
+            JOIN Brigade B ON CR.IdBrigade = B.IdBrigade
+        ORDER BY 
+            CR.RequestDate DESC";
+
+                SqlCommand command = new SqlCommand(query, connection);
+
+                dgw.DataSource = null;
+                DataTable dataTable = new DataTable();
+                dataTable.Load(command.ExecuteReader());
+                dgw.DataSource = dataTable;
+
+                dgw.Columns["SurnameC"].HeaderText = "Прізвище";
+                dgw.Columns["NameC"].HeaderText = "Ім'я";
+                dgw.Columns["PatronymicC"].HeaderText = "По батькові";
+                dgw.Columns["RequestDate"].HeaderText = "Дата заявки";
+                dgw.Columns["RequestStatus"].HeaderText = "Статус заявки";
+                dgw.Columns["DateCreation"].HeaderText = "Дата створення бригади";
+
+                dataBase.closeConnection(connection);
+            }
+        }
+
+        // Запит 2
+        private void buttonFindClientsBySurname_Click(object sender, EventArgs e)
+        {
+            string letter = "Л";
+            FindClientsBySurname(dataGridViewInfo, letter);
+        }
+
+        private void FindClientsBySurname(DataGridView dgw, string letter)
+        {
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                dataBase.openConnection(connection);
+                string query = @"
+        SELECT 
+            C.SurnameC, C.NameC, C.PatronymicC, C.PhoneC
+        FROM 
+            Client C
+        WHERE 
+            C.SurnameC LIKE @Letter";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Letter", letter + "%");
+
+                dgw.DataSource = null;
+                DataTable dataTable = new DataTable();
+                dataTable.Load(command.ExecuteReader());
+                dgw.DataSource = dataTable;
+
+                dgw.Columns["SurnameC"].HeaderText = "Прізвище";
+                dgw.Columns["NameC"].HeaderText = "Ім'я";
+                dgw.Columns["PatronymicC"].HeaderText = "По батькові";
+                dgw.Columns["PhoneC"].HeaderText = "Телефон";
+
+                dataBase.closeConnection(connection);
+            }
+        }
+
+        // Запит 3
+        private void buttonLoadRequestsByDate_Click(object sender, EventArgs e)
+        {
+            DateTime startDate = new DateTime(2023, 1, 1);
+            DateTime endDate = new DateTime(2023, 12, 31);
+            LoadRequestsByDate(dataGridViewInfo, startDate, endDate);
+        }
+
+        private void LoadRequestsByDate(DataGridView dgw, DateTime startDate, DateTime endDate)
+        {
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                dataBase.openConnection(connection);
+                string query = @"
+        SELECT 
+            CR.IdRequest, C.SurnameC, C.NameC, CR.RequestDate, CR.RequestStatus
+        FROM 
+            Client C
+            JOIN ConnectionRequest CR ON C.IdClient = CR.IdClient
+        WHERE 
+            CR.RequestDate BETWEEN @StartDate AND @EndDate";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@StartDate", startDate);
+                command.Parameters.AddWithValue("@EndDate", endDate);
+
+                dgw.DataSource = null;
+                DataTable dataTable = new DataTable();
+                dataTable.Load(command.ExecuteReader());
+                dgw.DataSource = dataTable;
+
+                dgw.Columns["IdRequest"].HeaderText = "ID заявки";
+                dgw.Columns["SurnameC"].HeaderText = "Прізвище";
+                dgw.Columns["NameC"].HeaderText = "Ім'я";
+                dgw.Columns["RequestDate"].HeaderText = "Дата заявки";
+                dgw.Columns["RequestStatus"].HeaderText = "Статус заявки";
+
+                dataBase.closeConnection(connection);
+            }
+        }
+
+        // Запит 4
+        private void buttonCountClients_Click(object sender, EventArgs e)
+        {
+            CountClients(dataGridViewInfo);
+        }
+
+        private void CountClients(DataGridView dgw)
+        {
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                dataBase.openConnection(connection);
+                string query = @"
+            SELECT 
+                COUNT(*) AS TotalClients
+            FROM 
+                Client
+            WHERE 
+                IdUser IS NOT NULL";
+
+                SqlCommand command = new SqlCommand(query, connection);
+
+                dgw.DataSource = null;
+                DataTable dataTable = new DataTable();
+                dataTable.Load(command.ExecuteReader());
+                dgw.DataSource = dataTable;
+
+                dgw.Columns["TotalClients"].HeaderText = "Загальна кількість клієнтів";
+
+                dataBase.closeConnection(connection);
+            }
+        }
+
+        // Запит 5
+        private void buttonCountRequestsByBrigadeDate_Click(object sender, EventArgs e)
+        {
+            CountRequestsByBrigadeDate(dataGridViewInfo);
+        }
+
+        private void CountRequestsByBrigadeDate(DataGridView dgw)
+        {
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                dataBase.openConnection(connection);
+                string query = @"
+        SELECT 
+            B.DateCreation, COUNT(*) AS TotalRequests
+        FROM 
+            Brigade B
+            JOIN ConnectionRequest CR ON B.IdBrigade = CR.IdBrigade
+        GROUP BY 
+            B.DateCreation";
+
+                SqlCommand command = new SqlCommand(query, connection);
+
+                dgw.DataSource = null;
+                DataTable dataTable = new DataTable();
+                dataTable.Load(command.ExecuteReader());
+                dgw.DataSource = dataTable;
+
+                dgw.Columns["DateCreation"].HeaderText = "Дата створення бригади";
+                dgw.Columns["TotalRequests"].HeaderText = "Кількість заявок";
+
+                dataBase.closeConnection(connection);
+            }
+        }
+
+        // Запит 6
+        private void buttonEmployeeWithMostRequests_Click(object sender, EventArgs e)
+        {
+            EmployeeWithMostRequests(dataGridViewInfo);
+        }
+
+        private void EmployeeWithMostRequests(DataGridView dgw)
+        {
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                dataBase.openConnection(connection);
+                string query = @"
+        SELECT 
+            J.TitleJ, E.SurnameE, E.NameE, COUNT(*) AS TotalRequests
+        FROM 
+            Employee E
+            JOIN JobTitle J ON E.JobTitleId = J.IdJobTitle
+            JOIN Brigade B ON E.BrigadeId = B.IdBrigade
+            JOIN ConnectionRequest CR ON B.IdBrigade = CR.IdBrigade
+        GROUP BY 
+            J.TitleJ, E.SurnameE, E.NameE
+        HAVING 
+            COUNT(*) >= ALL (SELECT COUNT(*) 
+                             FROM ConnectionRequest 
+                             GROUP BY IdBrigade)";
+
+                SqlCommand command = new SqlCommand(query, connection);
+
+                dgw.DataSource = null;
+                DataTable dataTable = new DataTable();
+                dataTable.Load(command.ExecuteReader());
+                dgw.DataSource = dataTable;
+
+                dgw.Columns["TitleJ"].HeaderText = "Посада";
+                dgw.Columns["SurnameE"].HeaderText = "Прізвище";
+                dgw.Columns["NameE"].HeaderText = "Ім'я";
+                dgw.Columns["TotalRequests"].HeaderText = "Кількість заявок";
+
+                dataBase.closeConnection(connection);
+            }
+        }
+
+        // Запит 7
+        private void buttonMaxRequestsByJobTitle_Click(object sender, EventArgs e)
+        {
+            MaxRequestsByJobTitle(dataGridViewInfo);
+        }
+
+        private void MaxRequestsByJobTitle(DataGridView dgw)
+        {
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                dataBase.openConnection(connection);
+                string query = @"
+        SELECT 
+            J.TitleJ, E.SurnameE, E.NameE
+        FROM 
+            Employee E
+            JOIN JobTitle J ON E.JobTitleId = J.IdJobTitle
+        WHERE 
+            E.IdEmployee = (SELECT TOP 1 IdEmployee 
+                            FROM Employee E2 
+                            WHERE E2.JobTitleId = J.IdJobTitle 
+                            ORDER BY (SELECT COUNT(*) 
+                                      FROM ConnectionRequest CR 
+                                      WHERE CR.IdBrigade = E2.BrigadeId) DESC)";
+
+                SqlCommand command = new SqlCommand(query, connection);
+
+                dgw.DataSource = null;
+                DataTable dataTable = new DataTable();
+                dataTable.Load(command.ExecuteReader());
+                dgw.DataSource = dataTable;
+
+                dgw.Columns["TitleJ"].HeaderText = "Посада";
+                dgw.Columns["SurnameE"].HeaderText = "Прізвище";
+                dgw.Columns["NameE"].HeaderText = "Ім'я";
+
+                dataBase.closeConnection(connection);
+            }
+        }
+
+        //Запит 8
+        private void buttonEmployeesNoRequestsLastWeek_Click(object sender, EventArgs e)
+        {
+            EmployeesNoRequestsLastWeek(dataGridViewInfo);
+        }
+
+        private void EmployeesNoRequestsLastWeek(DataGridView dgw)
+        {
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                dataBase.openConnection(connection);
+                string query = @"
+                SELECT 
+                    E.SurnameE, E.NameE
+                FROM 
+                    Employee E
+                WHERE 
+                    E.BrigadeId NOT IN (SELECT IdBrigade 
+                                        FROM ConnectionRequest 
+                                        WHERE RequestDate BETWEEN @StartDate AND @EndDate)";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@StartDate", new DateTime(2023, 6, 1));
+                command.Parameters.AddWithValue("@EndDate", new DateTime(2023, 6, 7));
+
+                dgw.DataSource = null;
+                DataTable dataTable = new DataTable();
+                dataTable.Load(command.ExecuteReader());
+                dgw.DataSource = dataTable;
+
+                dgw.Columns["SurnameE"].HeaderText = "Прізвище";
+                dgw.Columns["NameE"].HeaderText = "Ім'я";
+
+                dataBase.closeConnection(connection);
+            }
+        }
+
+        // Запит 9
+        private void buttonBrigadeComments_Click(object sender, EventArgs e)
+        {
+            LoadBrigadeComments(dataGridViewInfo);
+        }
+
+        private void LoadBrigadeComments(DataGridView dgw)
+        {
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                dataBase.openConnection(connection);
+                string query = @"
+                        SELECT 
+                            B.IdBrigade, 
+                            'Має виконані роботи' AS Коментар
+                        FROM 
+                            Brigade B
+                        JOIN 
+                            ConnectionRequest CR ON B.IdBrigade = CR.IdBrigade
+
+                        UNION
+
+                        SELECT 
+                            B.IdBrigade, 
+                            'Не має виконаних робіт' AS Коментар
+                        FROM 
+                            Brigade B
+                        WHERE 
+                            B.IdBrigade NOT IN (
+                                SELECT 
+                                    CR.IdBrigade
+                                FROM 
+                                    ConnectionRequest CR
+                            );";
+
+                SqlCommand command = new SqlCommand(query, connection);
+
+                dgw.DataSource = null;
+                DataTable dataTable = new DataTable();
+                dataTable.Load(command.ExecuteReader());
+                dgw.DataSource = dataTable;
+
+                dgw.Columns["IdBrigade"].HeaderText = "ID Бригади";
+                dgw.Columns["Коментар"].HeaderText = "Коментар";
+
+                dataBase.closeConnection(connection);
+            }
+        }
     }
 }

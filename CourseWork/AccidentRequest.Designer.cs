@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.buttonConfirm = new System.Windows.Forms.Button();
             this.pictureBoxHelp = new System.Windows.Forms.PictureBox();
@@ -36,6 +37,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.closeButton = new System.Windows.Forms.Label();
             this.labelPanel = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHelp)).BeginInit();
             this.panel2.SuspendLayout();
@@ -76,6 +78,8 @@
             this.pictureBoxHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxHelp.TabIndex = 16;
             this.pictureBoxHelp.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBoxHelp, "Примітка: \r\nВсі ваші данні автоматично\r\nпідтягуються до заяви. Лише потрібно \r\nвв" +
+        "ести причину аварії");
             // 
             // label1
             // 
@@ -161,5 +165,6 @@
         private System.Windows.Forms.ComboBox comboBoxAccident;
         private System.Windows.Forms.PictureBox pictureBoxHelp;
         private System.Windows.Forms.Button buttonConfirm;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
