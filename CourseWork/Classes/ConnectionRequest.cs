@@ -154,7 +154,7 @@ namespace CourseWork.Classes
         }
 
         // Метод для додавання нового запису в таблицю ConnectionRequest
-        private void UpdateConnectionRequest(int requestId)
+        private void UpdateConnectionRequest(short requestId)
         {
             DateTime date = dateTimePickerDate.Value.Date;
             TimeSpan time = dateTimePickerTime.Value.TimeOfDay;
@@ -221,7 +221,7 @@ namespace CourseWork.Classes
             return true;
         }
 
-        private void WriteOffMaterials(int materialId, string requestType, int quantity, DateTime writeOffDate, int requestId)
+        private void WriteOffMaterials(short materialId, string requestType, int quantity, DateTime writeOffDate, short requestId)
         {
             WriteOffMaterials writeOffMaterials = new WriteOffMaterials();
             writeOffMaterials.AddWriteOffMaterials(materialId, requestType, quantity, writeOffDate, requestId);
@@ -236,20 +236,36 @@ namespace CourseWork.Classes
 
             UpdateConnectionRequest(_idRequest);
 
-            DateTime writeOffDate = dateTimePickerDate.Value.Date.Add(dateTimePickerTime.Value.TimeOfDay);
+            comboBoxNeedMaterial_SelectedIndexChanged(sender, e);
+        }
 
-            foreach (var material in selectedMaterials)
+        private void comboBoxNeedMaterial_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Отримати вибраний елемент
+            string selectedItem = comboBoxNeedMaterial.SelectedItem.ToString();
+
+            // Знайти відповідний матеріал у списку
+            var selectedMaterial = selectedMaterials.FirstOrDefault(m => $"{m.RequestType}: {m.Quantity}" == selectedItem);
+
+            if (selectedMaterial != default)
             {
-                // Отримання кількості матеріалу з глобальної змінної
-                int quantity = material.Quantity;
-                int materialId = material.MaterialId;
-                string requestType = material.RequestType;
+                // Викликати функцію WriteOffMaterials
+                short materialId = selectedMaterial.MaterialId;
+                string requestType = selectedMaterial.RequestType;
+                int quantity = selectedMaterial.Quantity;
+                DateTime writeOffDate = dateTimePickerDate.Value.Date.Add(dateTimePickerTime.Value.TimeOfDay);
+                short idRequest = _idRequest; // Використовується з глобальної змінної
 
-                // Виклик функції списання матеріалу з обраним користувачем materialId
-                WriteOffMaterials(materialId, requestType, quantity, writeOffDate, _idRequest);
+                WriteOffMaterials(materialId, requestType, quantity, writeOffDate, idRequest);
+
+                // Закрити форму або виконати інші необхідні дії
+                this.Close();
             }
-
-            this.Close();
+            else
+            {
+                // Обробка випадку, коли матеріал не знайдено (якщо необхідно)
+                MessageBox.Show("Матеріал не знайдено у списку.");
+            }
         }
     }
 }

@@ -224,6 +224,7 @@ namespace CourseWork
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@idClient", currentClientId);
 
+                dgw.DataSource = null; // Очистимо дані, щоб видалити попередні записи
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
                 adapter.Fill(dataTable);
             }
