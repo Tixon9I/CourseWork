@@ -67,33 +67,49 @@ namespace CourseWork
             {
                 dataBase.openConnection(connection);
                 string query = @"
-                SELECT 
-                    CR.IdRequest, 
-                    CR.RequestDate, 
-                    CR.RequestStatus, 
-                    CR.Details,
-                    CR.IdBrigade,
-                    CR.WorkDate,
-                    CR.SumRequest,
-                    C.IdClient,
-                    C.SurnameC, 
-                    C.NameC, 
-                    C.PatronymicC, 
-                    CR.PhoneC, 
-                    CR.AddressC 
-                FROM 
-                    ConnectionRequest CR
-                INNER JOIN 
-                    Client C ON CR.IdClient = C.IdClient";
+        SELECT 
+            CR.IdRequest, 
+            CR.RequestDate, 
+            CR.RequestStatus, 
+            CR.Details,
+            CR.IdBrigade,
+            CR.WorkDate,
+            CR.SumRequest,
+            C.IdClient,
+            C.SurnameC, 
+            C.NameC, 
+            C.PatronymicC, 
+            CR.PhoneC, 
+            CR.AddressC 
+        FROM 
+            ConnectionRequest CR
+        INNER JOIN 
+            Client C ON CR.IdClient = C.IdClient";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
                 SqlDataReader reader = command.ExecuteReader();
 
-                dgw.DataSource = null; // Очистимо дані, щоб видалити попередні записи
-                DataTable dataTable = new DataTable(); // Створимо новий DataTable для збереження результатів запиту
-                dataTable.Load(reader); // Завантажимо дані з SqlDataReader до DataTable
-                dgw.DataSource = dataTable; // Прив'яжемо DataTable до DataGridView
+                dgw.DataSource = null;
+                DataTable dataTable = new DataTable();
+                dataTable.Load(reader);
+                dgw.DataSource = dataTable;
+
+                // Зміна назв стовпців у DataGridView
+                dgw.Columns["IdRequest"].HeaderText = "ID Заявки";
+                dgw.Columns["RequestDate"].HeaderText = "Дата створення";
+                dgw.Columns["RequestStatus"].HeaderText = "Статус заявки";
+                dgw.Columns["Details"].HeaderText = "Деталі";
+                dgw.Columns["IdBrigade"].HeaderText = "ID Бригади";
+                dgw.Columns["WorkDate"].HeaderText = "Дата виконання";
+                dgw.Columns["SumRequest"].HeaderText = "Сума заявки";
+                dgw.Columns["IdClient"].HeaderText = "ID Клієнта";
+                dgw.Columns["SurnameC"].HeaderText = "Прізвище";
+                dgw.Columns["NameC"].HeaderText = "Ім'я";
+                dgw.Columns["PatronymicC"].HeaderText = "По батькові";
+                dgw.Columns["PhoneC"].HeaderText = "Телефон";
+                dgw.Columns["AddressC"].HeaderText = "Адреса";
+
                 reader.Close();
                 dataBase.closeConnection(connection);
             }
@@ -133,10 +149,24 @@ namespace CourseWork
 
                 SqlCommand command = new SqlCommand(query, connection);
 
-                dgw.DataSource = null; // Очистимо дані, щоб видалити попередні записи
-                DataTable dataTable = new DataTable(); // Створимо новий DataTable для збереження результатів запиту
-                dataTable.Load(command.ExecuteReader()); // Завантажимо дані з SqlDataReader до DataTable
-                dgw.DataSource = dataTable; // Прив'яжемо DataTable до DataGridView
+                dgw.DataSource = null; 
+                DataTable dataTable = new DataTable(); 
+                dataTable.Load(command.ExecuteReader()); 
+                dgw.DataSource = dataTable;
+
+                dgw.Columns["IdReport"].HeaderText = "ID заявки";
+                dgw.Columns["ReportDate"].HeaderText = "Дата створення";
+                dgw.Columns["ReportStatus"].HeaderText = "Статус заявки";
+                dgw.Columns["Details"].HeaderText = "Деталі";
+                dgw.Columns["IdBrigade"].HeaderText = "ID Бригади";
+                dgw.Columns["WorkDate"].HeaderText = "Дата виконання";
+                dgw.Columns["SumRequest"].HeaderText = "Сума заявки";
+                dgw.Columns["IdClient"].HeaderText = "ID Клієнта";
+                dgw.Columns["SurnameC"].HeaderText = "Прізвище";
+                dgw.Columns["NameC"].HeaderText = "Ім'я";
+                dgw.Columns["PatronymicC"].HeaderText = "По батькові";
+                dgw.Columns["PhoneC"].HeaderText = "Телефон";
+                dgw.Columns["AddressC"].HeaderText = "Адреса";
 
                 dataBase.closeConnection(connection);
             }
@@ -159,7 +189,6 @@ namespace CourseWork
                 }
                 else if (dataGridViewInfo.Columns[e.ColumnIndex].Name == "IdReport")
                 {
-                    // Тут отримайте дані іншої заявки і створіть новий об'єкт відповідного вікна
                     short idReport = Convert.ToInt16(dataGridViewInfo.Rows[e.RowIndex].Cells["IdReport"].Value);
                     DateTime reportDate = Convert.ToDateTime(dataGridViewInfo.Rows[e.RowIndex].Cells["ReportDate"].Value);
                     string reportStatus = dataGridViewInfo.Rows[e.RowIndex].Cells["ReportStatus"].Value.ToString();
@@ -208,14 +237,18 @@ namespace CourseWork
             // Додавання рахунку для кожного клієнта
             foreach (short clientId in clientIds)
             {
-                // Перевірка, чи існує рахунок для поточного клієнта або чи пройшло більше 30 днів з моменту створення останнього рахунку
-                if (!IsBillExistOrExpired(clientId))
+                // Перевірка, чи існує заявка на підключення для поточного клієнта
+                if (HasConnectionRequest(clientId))
                 {
-                    // Виклик методу додавання рахунку
-                    AddWaterBill(clientId, billDate, pricePerCubicMeter, cubicMetersUsed, billStatus);
+                    // Перевірка, чи існує рахунок для поточного клієнта або чи пройшло більше 30 днів з моменту створення останнього рахунку
+                    if (!IsBillExistOrExpired(clientId))
+                    {
+                        // Виклик методу додавання рахунку
+                        AddWaterBill(clientId, billDate, pricePerCubicMeter, cubicMetersUsed, billStatus);
 
-                    // Встановлення прапорця, що було створено рахунок
-                    anyBillCreated = true;
+                        // Встановлення прапорця, що було створено рахунок
+                        anyBillCreated = true;
+                    }
                 }
             }
 
@@ -236,8 +269,8 @@ namespace CourseWork
             using (SqlConnection connection = dataBase.getConnection())
             {
                 string query = @"
-         INSERT INTO WaterBill (IdClient, BillDate, PricePerCubicMeter, CubicMetersUsed, BillStatus)
-         VALUES (@IdClient, @BillDate, @PricePerCubicMeter, @CubicMetersUsed, @BillStatus)";
+ INSERT INTO WaterBill (IdClient, BillDate, PricePerCubicMeter, CubicMetersUsed, BillStatus)
+ VALUES (@IdClient, @BillDate, @PricePerCubicMeter, @CubicMetersUsed, @BillStatus)";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@IdClient", clientId);
                 command.Parameters.AddWithValue("@BillDate", billDate);
@@ -249,13 +282,13 @@ namespace CourseWork
                 command.ExecuteNonQuery();
                 dataBase.closeConnection(connection);
             }
-        } 
+        }
 
-        // Метод для перевірки наявності рахунку для певного клієнта або перевірки, чи пройшло більше 30 днів з моменту створення останнього рахунку
-        private bool IsBillExistOrExpired(short clientId)
+        // Метод для перевірки наявності заявки на підключення для клієнта
+        private bool HasConnectionRequest(short clientId)
         {
-            // SQL-запит для перевірки наявності рахунку для клієнта або отримання дати останнього рахунку
-            string query = "SELECT COUNT(*), MAX(BillDate) FROM WaterBill WHERE IdClient = @IdClient";
+            // SQL-запит для перевірки наявності заявки на підключення для клієнта
+            string query = "SELECT COUNT(*) FROM ConnectionRequest WHERE IdClient = @IdClient";
 
             using (SqlConnection connection = dataBase.getConnection())
             {
@@ -263,25 +296,50 @@ namespace CourseWork
                 command.Parameters.AddWithValue("@IdClient", clientId);
                 dataBase.openConnection(connection);
 
-                SqlDataReader reader = command.ExecuteReader();
+                int count = (int)command.ExecuteScalar();
 
-                int count = 0;
-                DateTime? lastBillDate = null;
-
-                // Читання результатів запиту та встановлення значень змінних count та lastBillDate
-                if (reader.Read())
-                {
-                    count = reader.GetInt32(0);
-                    lastBillDate = reader.IsDBNull(1) ? (DateTime?)null : reader.GetDateTime(1);
-                }
-
-                reader.Close();
                 dataBase.closeConnection(connection);
 
-                // Якщо кількість рахунків більше 0 або пройшло менше 30 днів з моменту створення останнього рахунку, то повертається true
-                return count > 0 && (DateTime.Now - lastBillDate.Value).Days < 30;
+                // Перевірка, чи існує заявка на підключення
+                return count > 0;
             }
         }
+
+        // Метод для перевірки наявності рахунку для клієнта або перевірки, чи пройшло більше 30 днів з моменту створення останнього рахунку
+        private bool IsBillExistOrExpired(short clientId)
+        {
+            // SQL-запит для отримання найновішої дати рахунку для клієнта
+            string query = "SELECT MAX(BillDate) FROM WaterBill WHERE IdClient = @IdClient";
+
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdClient", clientId);
+                dataBase.openConnection(connection);
+
+                // Отримання найновішої дати рахунку
+                object latestBillDateObj = command.ExecuteScalar();
+
+                // Перевірка на null перед конвертацією
+                if (latestBillDateObj != DBNull.Value && latestBillDateObj != null)
+                {
+                    DateTime latestBillDate = Convert.ToDateTime(latestBillDateObj);
+
+                    // Перевірка, чи пройшло більше 30 днів з отримання дати рахунку
+                    if ((DateTime.Now - latestBillDate).TotalDays >= 30)
+                    {
+                        // Закриття з'єднання, так як воно вже не потрібне
+                        dataBase.closeConnection(connection);
+                        return true;
+                    }
+                }
+
+                // Закриття з'єднання в будь-якому випадку
+                dataBase.closeConnection(connection);
+                return false;
+            }
+        }
+
 
         // Метод для отримання всіх ідентифікаторів клієнтів з бази даних
         private List<short> GetAllClientIds()

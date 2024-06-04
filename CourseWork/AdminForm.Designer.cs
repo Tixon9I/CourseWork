@@ -71,7 +71,7 @@
             this.label5.AutoSize = true;
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label5.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(828, 387);
+            this.label5.Location = new System.Drawing.Point(828, 398);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(186, 23);
             this.label5.TabIndex = 27;
@@ -79,7 +79,7 @@
             // 
             // buttonPurchaseMaterial
             // 
-            this.buttonPurchaseMaterial.Location = new System.Drawing.Point(841, 424);
+            this.buttonPurchaseMaterial.Location = new System.Drawing.Point(841, 438);
             this.buttonPurchaseMaterial.Name = "buttonPurchaseMaterial";
             this.buttonPurchaseMaterial.Size = new System.Drawing.Size(166, 56);
             this.buttonPurchaseMaterial.TabIndex = 26;
@@ -92,15 +92,15 @@
             this.label4.AutoSize = true;
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label4.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(589, 366);
+            this.label4.Location = new System.Drawing.Point(608, 377);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(226, 44);
+            this.label4.Size = new System.Drawing.Size(199, 44);
             this.label4.TabIndex = 25;
-            this.label4.Text = "Кнопка для сформування\r\n розрахунку за воду";
+            this.label4.Text = "Кнопка для створення\r\nрозрахунків";
             // 
             // buttonBill
             // 
-            this.buttonBill.Location = new System.Drawing.Point(623, 424);
+            this.buttonBill.Location = new System.Drawing.Point(623, 438);
             this.buttonBill.Name = "buttonBill";
             this.buttonBill.Size = new System.Drawing.Size(166, 56);
             this.buttonBill.TabIndex = 24;
@@ -132,7 +132,7 @@
             // 
             // buttonAccidentReportView
             // 
-            this.buttonAccidentReportView.Location = new System.Drawing.Point(828, 568);
+            this.buttonAccidentReportView.Location = new System.Drawing.Point(841, 568);
             this.buttonAccidentReportView.Name = "buttonAccidentReportView";
             this.buttonAccidentReportView.Size = new System.Drawing.Size(166, 56);
             this.buttonAccidentReportView.TabIndex = 19;
@@ -156,7 +156,7 @@
             this.dataGridViewInfo.AllowUserToDeleteRows = false;
             this.dataGridViewInfo.BackgroundColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.dataGridViewInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewInfo.Location = new System.Drawing.Point(5, 173);
+            this.dataGridViewInfo.Location = new System.Drawing.Point(3, 171);
             this.dataGridViewInfo.Name = "dataGridViewInfo";
             this.dataGridViewInfo.ReadOnly = true;
             this.dataGridViewInfo.RowHeadersWidth = 51;

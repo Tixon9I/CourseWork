@@ -115,6 +115,7 @@ namespace CourseWork.Classes
             if (selectedMaterials.Count == 0)
             {
                 MessageBox.Show("Потрібно здійснити закупку необхідних матеріалів!", "Повідомлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Hide();
                 this.Close();
                 return;
             }

@@ -15,10 +15,10 @@ namespace CourseWork
     
     public partial class UserForm : Form
     {
-        private int currentClientId;
+        private short currentClientId;
         private Database dataBase = new Database();
 
-        public UserForm(int clientId)
+        public UserForm(short clientId)
         {
             currentClientId = clientId;
             InitializeComponent();
@@ -108,17 +108,24 @@ namespace CourseWork
                 command.Parameters.AddWithValue("@idClient", currentClientId);
 
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
-                DataTable dataTable = new DataTable(); // Створимо новий DataTable для збереження результатів запиту
-                adapter.Fill(dataTable); // Заповнимо DataTable даними з бази даних
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
 
                 if (dataTable.Rows.Count > 0)
                 {
-                    dgw.DataSource = dataTable; // Прив'яжемо DataTable до DataGridView
+                    dgw.DataSource = dataTable;
+
+                    dgw.Columns["SurnameC"].HeaderText = "Прізвище";
+                    dgw.Columns["NameC"].HeaderText = "Ім'я";
+                    dgw.Columns["PatronymicC"].HeaderText = "По батькові";
+                    dgw.Columns["PhoneC"].HeaderText = "Телефон";
+                    dgw.Columns["AddressC"].HeaderText = "Адреса";
                 }
 
                 dataBase.closeConnection(connection);
             }
         }
+
 
         // Показ записів з бд на DataGridView (Заявка на підключення)
         private void buttonConnectionRequestView_Click(object sender, EventArgs e)
@@ -132,24 +139,24 @@ namespace CourseWork
             {
                 dataBase.openConnection(connection);
                 string query = @"
-                SELECT 
-                    CR.RequestDate, 
-                    CR.RequestStatus, 
-                    CR.Details,
-                    CR.IdBrigade,
-                    CR.WorkDate,
-                    CR.SumRequest,
-                    C.SurnameC, 
-                    C.NameC, 
-                    C.PatronymicC, 
-                    CR.PhoneC, 
-                    CR.AddressC 
-                FROM 
-                    ConnectionRequest CR
-                INNER JOIN 
-                    Client C ON CR.IdClient = C.IdClient
-                WHERE 
-                    CR.IdClient = @idClient";
+        SELECT 
+            CR.RequestDate, 
+            CR.RequestStatus, 
+            CR.Details,
+            CR.IdBrigade,
+            CR.WorkDate,
+            CR.SumRequest,
+            C.SurnameC, 
+            C.NameC, 
+            C.PatronymicC, 
+            CR.PhoneC, 
+            CR.AddressC 
+        FROM 
+            ConnectionRequest CR
+        INNER JOIN 
+            Client C ON CR.IdClient = C.IdClient
+        WHERE 
+            CR.IdClient = @idClient";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@idClient", currentClientId);
@@ -160,10 +167,25 @@ namespace CourseWork
                 DataTable dataTable = new DataTable(); // Створимо новий DataTable для збереження результатів запиту
                 dataTable.Load(reader); // Завантажимо дані з SqlDataReader до DataTable
                 dgw.DataSource = dataTable; // Прив'яжемо DataTable до DataGridView
+
+                // Змінимо назви стовпців
+                dgw.Columns["RequestDate"].HeaderText = "Дата заявки";
+                dgw.Columns["RequestStatus"].HeaderText = "Статус заявки";
+                dgw.Columns["Details"].HeaderText = "Деталі";
+                dgw.Columns["IdBrigade"].HeaderText = "ID Бригади";
+                dgw.Columns["WorkDate"].HeaderText = "Дата виконання";
+                dgw.Columns["SumRequest"].HeaderText = "Сума заявки";
+                dgw.Columns["SurnameC"].HeaderText = "Прізвище";
+                dgw.Columns["NameC"].HeaderText = "Ім'я";
+                dgw.Columns["PatronymicC"].HeaderText = "По батькові";
+                dgw.Columns["PhoneC"].HeaderText = "Телефон";
+                dgw.Columns["AddressC"].HeaderText = "Адреса";
+
                 reader.Close();
                 dataBase.closeConnection(connection);
             }
         }
+
 
         // Показ записів з бд на DataGridView (Заявки на усунення аварії)
         private void buttonAccidentReportView_Click(object sender, EventArgs e)
@@ -180,24 +202,24 @@ namespace CourseWork
             {
                 connection.Open();
                 string query = @"
-            SELECT 
-                AR.ReportDate, 
-                AR.ReportStatus, 
-                AR.Details,
-                AR.IdBrigade,
-                AR.WorkDate,
-                AR.SumRequest,
-                C.SurnameC, 
-                C.NameC, 
-                C.PatronymicC, 
-                AR.PhoneC, 
-                AR.AddressC 
-            FROM 
-                 AccidentReport AR
-            INNER JOIN 
-                Client C ON AR.IdClient = C.IdClient
-            WHERE 
-                AR.IdClient = @idClient";
+        SELECT 
+            AR.ReportDate, 
+            AR.ReportStatus, 
+            AR.Details,
+            AR.IdBrigade,
+            AR.WorkDate,
+            AR.SumRequest,
+            C.SurnameC, 
+            C.NameC, 
+            C.PatronymicC, 
+            AR.PhoneC, 
+            AR.AddressC 
+        FROM 
+            AccidentReport AR
+        INNER JOIN 
+            Client C ON AR.IdClient = C.IdClient
+        WHERE 
+            AR.IdClient = @idClient";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@idClient", currentClientId);
@@ -207,7 +229,21 @@ namespace CourseWork
             }
 
             dgw.DataSource = dataTable;
+
+            // Зміна назв стовпців у DataGridView
+            dgw.Columns["ReportDate"].HeaderText = "Дата заявки";
+            dgw.Columns["ReportStatus"].HeaderText = "Статус заявки";
+            dgw.Columns["Details"].HeaderText = "Деталі";
+            dgw.Columns["IdBrigade"].HeaderText = "ID Бригади";
+            dgw.Columns["WorkDate"].HeaderText = "Дата виконання";
+            dgw.Columns["SumRequest"].HeaderText = "Сума заявки";
+            dgw.Columns["SurnameC"].HeaderText = "Прізвище";
+            dgw.Columns["NameC"].HeaderText = "Ім'я";
+            dgw.Columns["PatronymicC"].HeaderText = "По батькові";
+            dgw.Columns["PhoneC"].HeaderText = "Телефон";
+            dgw.Columns["AddressC"].HeaderText = "Адреса";
         }
+
 
         // Кастомізована кнопка закриття вікна
         private void closeButton_Click(object sender, EventArgs e)
@@ -378,8 +414,8 @@ namespace CourseWork
 
                             // Запит на створення заявки на аварію
                             string insertRequestQuery = @"
-                        INSERT INTO AccidentReport (IdClient, ReportDate, ReportStatus, Details, PhoneC, AddressC) 
-                        VALUES (@idClient, @reportDate, @status, @details, @phone, @address)";
+                            INSERT INTO AccidentReport (IdClient, ReportDate, ReportStatus, Details, PhoneC, AddressC) 
+                            VALUES (@idClient, @reportDate, @status, @details, @phone, @address)";
                             SqlCommand commandRequest = new SqlCommand(insertRequestQuery, connection, transaction);
                             commandRequest.Parameters.AddWithValue("@idClient", currentClientId);
                             commandRequest.Parameters.AddWithValue("@reportDate", DateTime.Now);
@@ -430,32 +466,57 @@ namespace CourseWork
         private void buttonPay_Click(object sender, EventArgs e)
         {
             DateTime paymentDate = DateTime.Now;
-            bool success = UpdateUnpaidBillsForClient(currentClientId, paymentDate);
 
-            if (success)
+            List<short> paidBillIds = UpdateUnpaidBillsForClient(currentClientId, paymentDate);
+            List<short> updatedConnectionRequestIds = UpdateUnpaidConnectionRequestsForClient(currentClientId, paymentDate);
+            List<short> updatedAccidentReportIds = UpdateUnpaidAccidentReportsForClient(currentClientId, paymentDate);
+
+            string message = "";
+
+            if (paidBillIds.Count > 0)
             {
-                MessageBox.Show("Рахунки успішно оплачено!", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                message += "Оплачено рахунки з ID: " + string.Join(", ", paidBillIds) + "\n";
             }
             else
             {
-                MessageBox.Show("Рахунків для оплати не знайдено.", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                message += "Рахунків для оплати не знайдено.\n";
             }
+
+            if (updatedConnectionRequestIds.Count > 0)
+            {
+                message += "Оплачено заявки на підключення з ID: " + string.Join(", ", updatedConnectionRequestIds) + "\n";
+            }
+            else
+            {
+                message += "Заявок на підключення для оплати не знайдено.\n";
+            }
+
+            if (updatedAccidentReportIds.Count > 0)
+            {
+                message += "Оплачено звіти про аварії з ID: " + string.Join(", ", updatedAccidentReportIds);
+            }
+            else
+            {
+                message += "Звітів про аварії для оплати не знайдено.";
+            }
+
+            MessageBox.Show(message, "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private bool UpdateUnpaidBillsForClient(int clientId, DateTime paymentDate)
+        private List<short> UpdateUnpaidBillsForClient(short clientId, DateTime paymentDate)
         {
-            bool success = false;
+            List<short> paidBillIds = new List<short>();
 
             using (SqlConnection connection = dataBase.getConnection())
             {
                 string query = @"
-            UPDATE WaterBill
-            SET 
-                DueDate = @PaymentDate,
-                BillStatus = 'Оплачено'
-            WHERE 
-                IdClient = @ClientId
-                AND BillStatus = 'Неоплачено'";
+    UPDATE WaterBill
+    SET 
+        DueDate = @PaymentDate,
+        BillStatus = 'Оплачено'
+    WHERE 
+        IdClient = @ClientId
+        AND BillStatus = 'Неоплачено'";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@PaymentDate", paymentDate);
@@ -463,17 +524,71 @@ namespace CourseWork
 
                 dataBase.openConnection(connection);
                 int rowsAffected = command.ExecuteNonQuery();
-                dataBase.closeConnection(connection);
-
-                // Перевірка, чи були оновлені рядки
                 if (rowsAffected > 0)
                 {
-                    success = true;
+                    // Якщо хоч один рядок був змінений, додаємо ID рахунку до списку оплачених рахунків
+                    paidBillIds.Add(clientId);
                 }
+                dataBase.closeConnection(connection);
             }
 
-            return success;
+            return paidBillIds;
         }
 
+        private List<short> UpdateUnpaidAccidentReportsForClient(short clientId, DateTime paymentDate)
+        {
+            List<short> updatedReportIds = new List<short>();
+
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                string query = @"
+                            UPDATE AccidentReport
+                        SET ReportStatus = 'Оплачено'
+                        WHERE IdClient = @ClientId
+                        AND SumRequest > 0";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ClientId", clientId);
+
+                dataBase.openConnection(connection);
+                int rowsAffected = command.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    // Додаємо ID звіту про аварію до списку оновлених звітів
+                    updatedReportIds.Add(clientId);
+                }
+                dataBase.closeConnection(connection);
+            }
+
+            return updatedReportIds;
+        }
+
+        private List<short> UpdateUnpaidConnectionRequestsForClient(short clientId, DateTime paymentDate)
+        {
+            List<short> updatedRequestIds = new List<short>();
+
+            using (SqlConnection connection = dataBase.getConnection())
+            {
+                string query = @"
+                            UPDATE ConnectionRequest
+                        SET RequestStatus = 'Оплачено'
+                        WHERE IdClient = @ClientId
+                        AND SumRequest > 0";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ClientId", clientId);
+
+                dataBase.openConnection(connection);
+                int rowsAffected = command.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    // Додаємо ID заявки на підключення до списку оновлених заявок
+                    updatedRequestIds.Add(clientId);
+                }
+                dataBase.closeConnection(connection);
+            }
+
+            return updatedRequestIds;
+        }
     }
 }

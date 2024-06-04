@@ -188,7 +188,7 @@ namespace CourseWork
 
             if (table.Rows.Count == 1)
             {
-                int userId = Convert.ToInt32(table.Rows[0]["iduser"]); // Отримати ідентифікатор користувача з результатів запиту
+                short userId = Convert.ToInt16(table.Rows[0]["iduser"]); // Отримати ідентифікатор користувача з результатів запиту
 
                 SqlConnection connection = dataBase.getConnection();
 
@@ -198,7 +198,7 @@ namespace CourseWork
                 // Здійснюємо другий запит для отримання ідентифікатора клієнта
                 string clientQueryString = $"SELECT IdClient FROM Client WHERE IdUser = {userId}";
                 SqlCommand clientCommand = new SqlCommand(clientQueryString, connection);
-                int clientId = Convert.ToInt32(clientCommand.ExecuteScalar());
+                short clientId = Convert.ToInt16(clientCommand.ExecuteScalar());
 
                 // Закриваємо підключення до бази даних після виконання запиту
                 dataBase.closeConnection(connection);

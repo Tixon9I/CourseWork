@@ -34,8 +34,6 @@ namespace CourseWork.Classes
         public EmergencyRepairRequest()
         {
             InitializeComponent();
-
-            this.Shown += new EventHandler(EmergencyRepairRequest_Shown);
         }
 
         private void EmergencyRepairRequest_Shown(object sender, EventArgs e)
@@ -46,6 +44,8 @@ namespace CourseWork.Classes
         public EmergencyRepairRequest(short idRequest, DateTime requestDate, string requestStatus, string details)
         {
             InitializeComponent();
+
+            this.Shown += new EventHandler(EmergencyRepairRequest_Shown);
 
             dateTimePickerTime.Format = DateTimePickerFormat.Custom;
             dateTimePickerTime.CustomFormat = "HH:mm";
@@ -119,6 +119,7 @@ namespace CourseWork.Classes
             if (selectedMaterials.Count == 0)
             {
                 MessageBox.Show("Потрібно здійснити закупку необхідних матеріалів!", "Повідомлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Hide();
                 this.Close();
                 return;
             }
@@ -245,7 +246,7 @@ namespace CourseWork.Classes
                 // Отримання кількості матеріалу з глобальної змінної
                 int quantity = material.Quantity;
                 int materialId = material.MaterialId;
-                string requestType = "Усунення аварій";
+                string requestType = material.RequestType;
 
                 // Виклик функції списання матеріалу з обраним користувачем materialId
                 WriteOffMaterials(materialId, requestType, quantity, writeOffDate, _idRequest);
