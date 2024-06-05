@@ -127,7 +127,7 @@
             this.comboBoxNeedMaterial.FormattingEnabled = true;
             this.comboBoxNeedMaterial.Location = new System.Drawing.Point(246, 504);
             this.comboBoxNeedMaterial.Name = "comboBoxNeedMaterial";
-            this.comboBoxNeedMaterial.Size = new System.Drawing.Size(205, 24);
+            this.comboBoxNeedMaterial.Size = new System.Drawing.Size(254, 24);
             this.comboBoxNeedMaterial.TabIndex = 30;
             // 
             // comboBoxBrigade

@@ -249,7 +249,7 @@
             this.buttonBill.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonBill.Location = new System.Drawing.Point(604, 438);
             this.buttonBill.Name = "buttonBill";
-            this.buttonBill.Size = new System.Drawing.Size(166, 56);
+            this.buttonBill.Size = new System.Drawing.Size(175, 56);
             this.buttonBill.TabIndex = 24;
             this.buttonBill.Text = "Сформування рахунків";
             this.buttonBill.UseVisualStyleBackColor = true;
@@ -293,7 +293,7 @@
             this.buttonConnectionRequestView.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonConnectionRequestView.Location = new System.Drawing.Point(604, 568);
             this.buttonConnectionRequestView.Name = "buttonConnectionRequestView";
-            this.buttonConnectionRequestView.Size = new System.Drawing.Size(166, 56);
+            this.buttonConnectionRequestView.Size = new System.Drawing.Size(175, 56);
             this.buttonConnectionRequestView.TabIndex = 18;
             this.buttonConnectionRequestView.Text = "Переглянути заявку на підключення";
             this.buttonConnectionRequestView.UseVisualStyleBackColor = true;

@@ -222,6 +222,7 @@ namespace CourseWork
         }
 
         // Сформування рахунків клієнтам
+        // Сформування рахунків клієнтам
         private void buttonBill_Click(object sender, EventArgs e)
         {
             // Отримання всіх ідентифікаторів клієнтів з бази даних
@@ -240,8 +241,9 @@ namespace CourseWork
             // Ціна за кубометр води
             decimal pricePerCubicMeter = 4.5m;
 
-            // Отримання кількості використаних кубометрів води
-            decimal cubicMetersUsed = 50.0m;
+            // Генерація випадкового значення для cubicMetersUsed
+            Random random = new Random();
+            
 
             // Статус рахунку
             string billStatus = "Неоплачено";
@@ -252,11 +254,14 @@ namespace CourseWork
             // Додавання рахунку для кожного клієнта
             foreach (short clientId in clientIds)
             {
+                // Генерація випадкового значення для cubicMetersUsed для кожного клієнта
+                decimal cubicMetersUsed = (decimal)(random.NextDouble() * 100);
+
                 // Перевірка, чи існує заявка на підключення для поточного клієнта
                 if (HasConnectionRequest(clientId))
                 {
                     // Перевірка, чи існує рахунок для поточного клієнта або чи пройшло більше 30 днів з моменту створення останнього рахунку
-                    if (!IsBillExistOrExpired(clientId))
+                    if (IsBillExistOrExpired(clientId))
                     {
                         // Виклик методу додавання рахунку
                         AddWaterBill(clientId, billDate, pricePerCubicMeter, cubicMetersUsed, billStatus);
@@ -284,8 +289,8 @@ namespace CourseWork
             using (SqlConnection connection = dataBase.getConnection())
             {
                 string query = @"
-                 INSERT INTO WaterBill (IdClient, BillDate, PricePerCubicMeter, CubicMetersUsed, BillStatus)
-                 VALUES (@IdClient, @BillDate, @PricePerCubicMeter, @CubicMetersUsed, @BillStatus)";
+          INSERT INTO WaterBill (IdClient, BillDate, PricePerCubicMeter, CubicMetersUsed, BillStatus)
+          VALUES (@IdClient, @BillDate, @PricePerCubicMeter, @CubicMetersUsed, @BillStatus)";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@IdClient", clientId);
                 command.Parameters.AddWithValue("@BillDate", billDate);
@@ -341,17 +346,15 @@ namespace CourseWork
                     DateTime latestBillDate = Convert.ToDateTime(latestBillDateObj);
 
                     // Перевірка, чи пройшло більше 30 днів з отримання дати рахунку
-                    if ((DateTime.Now - latestBillDate).TotalDays >= 30)
+                    if ((DateTime.Now - latestBillDate).TotalDays < 30)
                     {
-                        // Закриття з'єднання, так як воно вже не потрібне
                         dataBase.closeConnection(connection);
-                        return true;
+                        return false;
                     }
                 }
 
-                // Закриття з'єднання в будь-якому випадку
                 dataBase.closeConnection(connection);
-                return false;
+                return true;
             }
         }
 

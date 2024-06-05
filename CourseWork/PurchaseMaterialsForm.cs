@@ -22,7 +22,7 @@ namespace CourseWork
             this.Shown += new EventHandler(PurchaseMaterialsForm_Shown);
 
             comboBoxCountMaterial.Items.AddRange(new object[] { "5", "10", "15", "20", "25" });
-            comboBoxTypeRequest.Items.AddRange(new object[] { "Усунення аварій", "Підключення до системи" });
+            comboBoxTypeRequest.Items.AddRange(new object[] { "Усунення аварій", "Підключення до системи водопостачання" });
             GetMaterials();
             GetProvider();
 
@@ -117,25 +117,11 @@ namespace CourseWork
             comboBoxProvider.DisplayMember = "Value";
         }
 
-
-
         public void AddPurchaseAndRequestMaterials(int materialId, int providerId, int countMaterials, DateTime purchaseDate, decimal price, string typeRequest)
         {
             using (SqlConnection connection = dataBase.getConnection())
             {
                 dataBase.openConnection(connection);
-
-                // Додавання запису до таблиці PurchaseMaterials
-                string purchaseQuery = @"
-            INSERT INTO PurchaseMaterials (MaterialId, ProviderId, CountMaterialsP, PurchaseDateP, PriceP)
-            VALUES (@MaterialId, @ProviderId, @CountMaterials, @PurchaseDate, @Price)";
-                SqlCommand purchaseCommand = new SqlCommand(purchaseQuery, connection);
-                purchaseCommand.Parameters.AddWithValue("@MaterialId", materialId);
-                purchaseCommand.Parameters.AddWithValue("@ProviderId", providerId);
-                purchaseCommand.Parameters.AddWithValue("@CountMaterials", countMaterials);
-                purchaseCommand.Parameters.AddWithValue("@PurchaseDate", purchaseDate);
-                purchaseCommand.Parameters.AddWithValue("@Price", price);
-                purchaseCommand.ExecuteNonQuery();
 
                 // Перевірка наявності запису у таблиці RequestMaterials
                 string checkQuery = @"
@@ -154,6 +140,18 @@ namespace CourseWork
                 }
                 else
                 {
+                    // Додавання запису до таблиці PurchaseMaterials
+                    string purchaseQuery = @"
+                INSERT INTO PurchaseMaterials (MaterialId, ProviderId, CountMaterialsP, PurchaseDateP, PriceP)
+                VALUES (@MaterialId, @ProviderId, @CountMaterials, @PurchaseDate, @Price)";
+                    SqlCommand purchaseCommand = new SqlCommand(purchaseQuery, connection);
+                    purchaseCommand.Parameters.AddWithValue("@MaterialId", materialId);
+                    purchaseCommand.Parameters.AddWithValue("@ProviderId", providerId);
+                    purchaseCommand.Parameters.AddWithValue("@CountMaterials", countMaterials);
+                    purchaseCommand.Parameters.AddWithValue("@PurchaseDate", purchaseDate);
+                    purchaseCommand.Parameters.AddWithValue("@Price", price);
+                    purchaseCommand.ExecuteNonQuery();
+
                     // Додавання запису до таблиці RequestMaterials
                     string requestQuery = @"
                 INSERT INTO RequestMaterials (RequestType, MaterialId, Quantity)
@@ -171,6 +169,7 @@ namespace CourseWork
                 dataBase.closeConnection(connection);
             }
         }
+
 
 
         private void buttonPurchase_Click(object sender, EventArgs e)
