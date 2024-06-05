@@ -189,7 +189,6 @@ namespace CourseWork.Classes
             }
         }
 
-
         private bool AreRequiredFieldsFilled()
         {
             List<string> errorMessages = new List<string>();
@@ -224,6 +223,7 @@ namespace CourseWork.Classes
             return true;
         }
 
+        // Фіксація списання матеріалів
         private void WriteOffMaterials(short materialId, string requestType, int quantity, DateTime writeOffDate, short requestId)
         {
             WriteOffMaterials writeOffMaterials = new WriteOffMaterials();
@@ -252,7 +252,6 @@ namespace CourseWork.Classes
 
             if (selectedMaterial != default)
             {
-                // Викликати функцію WriteOffMaterials
                 short materialId = selectedMaterial.MaterialId;
                 string requestType = selectedMaterial.RequestType;
                 int quantity = selectedMaterial.Quantity;
@@ -261,7 +260,6 @@ namespace CourseWork.Classes
 
                 WriteOffMaterials(materialId, requestType, quantity, writeOffDate, idRequest);
 
-                // Закрити форму або виконати інші необхідні дії
                 this.Close();
             }
             else

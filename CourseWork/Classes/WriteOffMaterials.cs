@@ -9,24 +9,18 @@ namespace CourseWork.Classes
 {
     internal class WriteOffMaterials
     {
-        public int IdWriteOffMaterials { get; set; }
-        public short MaterialId { get; set; }
-        public string RequestType { get; set; }
-        public int Quantity { get; set; }
-        public DateTime WriteOffDateW { get; set; }
-
         private Database dataBase = new Database();
 
         public void AddWriteOffMaterials(short materialId, string requestType, int quantity, DateTime writeOffDate, short requestId)
         {
             using (SqlConnection connection = dataBase.getConnection())
             {
-                connection.Open();
+                dataBase.openConnection(connection);
                 SqlTransaction transaction = connection.BeginTransaction();
 
                 try
                 {
-                    // Insert a new record into WriteOffMaterials
+                    // Додаємо запис
                     string insertQuery = @"INSERT INTO WriteOffMaterials (MaterialId, RequestType, Quantity, WriteOffDateW, RequestId) 
                                        VALUES (@MaterialId, @RequestType, @Quantity, @WriteOffDate, @RequestId)";
                     SqlCommand insertCommand = new SqlCommand(insertQuery, connection, transaction);
@@ -38,7 +32,7 @@ namespace CourseWork.Classes
 
                     insertCommand.ExecuteNonQuery();
 
-                    // Delete the corresponding record from RequestMaterials
+                    // Видаляємо матеріал
                     string deleteQuery = @"DELETE FROM RequestMaterials 
                                        WHERE MaterialId = @MaterialId AND RequestType = @RequestType";
                     SqlCommand deleteCommand = new SqlCommand(deleteQuery, connection, transaction);
@@ -56,7 +50,7 @@ namespace CourseWork.Classes
                 }
                 finally
                 {
-                    connection.Close();
+                    dataBase.closeConnection(connection);
                 }
             }
         }

@@ -26,14 +26,6 @@ namespace CourseWork
             this.textBoxLock.AutoSize = false;
             this.textBoxLock.Size = new Size(this.textBoxUser.Width, 32);
 
-            //// Надписи в текст-боксах
-            //textBoxUser.Text = "Введіть логін";
-            //textBoxUser.ForeColor = Color.Gray;
-
-            //textBoxLock.UseSystemPasswordChar = false;
-            //textBoxLock.Text = "Введіть пароль";
-            //textBoxLock.ForeColor = Color.Gray;
-
             // Підписуємося на подію завантаження форми
             this.Shown += new EventHandler(LoginForm_Shown);
         }
@@ -47,14 +39,6 @@ namespace CourseWork
             // Вирівнюємо текст-бокс з паролем
             this.textBoxLock.AutoSize = false;
             this.textBoxLock.Size = new Size(this.textBoxUser.Width, 32);
-
-            //// Надписи в текст-боксах
-            //textBoxUser.Text = "Введіть логін";
-            //textBoxUser.ForeColor = Color.Gray;
-
-            //textBoxLock.UseSystemPasswordChar = false;
-            //textBoxLock.Text = "Введіть пароль";
-            //textBoxLock.ForeColor = Color.Gray;
 
             // Підписуємося на подію завантаження форми
             this.Shown += new EventHandler(LoginForm_Shown);
@@ -225,7 +209,6 @@ namespace CourseWork
                 MessageBox.Show("Обліковий запис не існує для даної ролі!", "Помилка авторизації!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
 
         // Показати/Сховати текст в текст-боксі Password
         private void pictureBoxLook_Click(object sender, EventArgs e)

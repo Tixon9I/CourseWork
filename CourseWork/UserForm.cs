@@ -11,8 +11,6 @@ using System.Windows.Forms;
 
 namespace CourseWork
 {
-    // Потрібне для відображення даних в DataGridView
-    
     public partial class UserForm : Form
     {
         private short currentClientId;
@@ -464,6 +462,7 @@ namespace CourseWork
             }
         }
 
+        // Оплата рахунків
         private void buttonPay_Click(object sender, EventArgs e)
         {
             DateTime paymentDate = DateTime.Now;
@@ -511,13 +510,13 @@ namespace CourseWork
             using (SqlConnection connection = dataBase.getConnection())
             {
                 string query = @"
-    UPDATE WaterBill
-    SET 
-        DueDate = @PaymentDate,
-        BillStatus = 'Оплачено'
-    WHERE 
-        IdClient = @ClientId
-        AND BillStatus = 'Неоплачено'";
+                UPDATE WaterBill
+                SET 
+                    DueDate = @PaymentDate,
+                    BillStatus = 'Оплачено'
+                WHERE 
+                    IdClient = @ClientId
+                    AND BillStatus = 'Неоплачено'";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@PaymentDate", paymentDate);

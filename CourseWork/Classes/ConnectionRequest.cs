@@ -72,8 +72,8 @@ namespace CourseWork.Classes
             labelPanel.Focus();
         }
 
-            // Кастомізована кнопка закриття вікна
-            private void closeButton_Click(object sender, EventArgs e)
+        // Кастомізована кнопка закриття вікна
+        private void closeButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -131,7 +131,6 @@ namespace CourseWork.Classes
             fixedAmount = invoice.GetAmountForRequestType(requestType);
         }
 
-
         private void AssignBrigade()
         {
             DateTime selectedDate = dateTimePickerDate.Value.Date;
@@ -186,7 +185,6 @@ namespace CourseWork.Classes
             }
         }
 
-
         private bool AreRequiredFieldsFilled()
         {
             List<string> errorMessages = new List<string>();
@@ -223,7 +221,7 @@ namespace CourseWork.Classes
 
         private void WriteOffMaterials(short materialId, string requestType, int quantity, DateTime writeOffDate, short requestId)
         {
-            WriteOffMaterials writeOffMaterials = new WriteOffMaterials();
+            //WriteOffMaterials writeOffMaterials = new WriteOffMaterials();
             writeOffMaterials.AddWriteOffMaterials(materialId, requestType, quantity, writeOffDate, requestId);
         }
 

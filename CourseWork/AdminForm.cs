@@ -213,7 +213,6 @@ namespace CourseWork
             }
         }
 
-
         // Закупівля матеріалів
         private void buttonPurchaseMaterial_Click(object sender, EventArgs e)
         {
