@@ -33,6 +33,7 @@
             this.closeButton = new System.Windows.Forms.Label();
             this.labelPanel = new System.Windows.Forms.Label();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.pictureBoxHelp = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,7 +43,6 @@
             this.comboBoxCountMaterial = new System.Windows.Forms.ComboBox();
             this.comboBoxMaterial = new System.Windows.Forms.ComboBox();
             this.buttonPurchase = new System.Windows.Forms.Button();
-            this.pictureBoxHelp = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel2.SuspendLayout();
             this.mainPanel.SuspendLayout();
@@ -85,6 +85,8 @@
             this.labelPanel.TabIndex = 0;
             this.labelPanel.Text = "Закупівля матеріалів";
             this.labelPanel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelPanel_MouseDown);
+            this.labelPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.labelPanel_MouseMove);
             // 
             // mainPanel
             // 
@@ -106,6 +108,18 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(499, 497);
             this.mainPanel.TabIndex = 3;
+            // 
+            // pictureBoxHelp
+            // 
+            this.pictureBoxHelp.Image = global::CourseWork.Properties.Resources.help;
+            this.pictureBoxHelp.Location = new System.Drawing.Point(458, 134);
+            this.pictureBoxHelp.Name = "pictureBoxHelp";
+            this.pictureBoxHelp.Size = new System.Drawing.Size(27, 28);
+            this.pictureBoxHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxHelp.TabIndex = 17;
+            this.pictureBoxHelp.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBoxHelp, "Примітка:\r\nВи можете купувати матеріали\r\nдля виконання послуг клієнтів.\r\nОднакові" +
+        " закупівлі (назва та тип) не можуть\r\nбути придбані декілька разів!");
             // 
             // label4
             // 
@@ -194,18 +208,6 @@
             this.buttonPurchase.Text = "Придбати";
             this.buttonPurchase.UseVisualStyleBackColor = false;
             this.buttonPurchase.Click += new System.EventHandler(this.buttonPurchase_Click);
-            // 
-            // pictureBoxHelp
-            // 
-            this.pictureBoxHelp.Image = global::CourseWork.Properties.Resources.help;
-            this.pictureBoxHelp.Location = new System.Drawing.Point(458, 134);
-            this.pictureBoxHelp.Name = "pictureBoxHelp";
-            this.pictureBoxHelp.Size = new System.Drawing.Size(27, 28);
-            this.pictureBoxHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxHelp.TabIndex = 17;
-            this.pictureBoxHelp.TabStop = false;
-            this.toolTip1.SetToolTip(this.pictureBoxHelp, "Примітка:\r\nВи можете купувати матеріали\r\nдля виконання послуг клієнтів.\r\nОднакові" +
-        " закупівлі (назва та тип) не можуть\r\nбути придбані декілька разів!");
             // 
             // PurchaseMaterialsForm
             // 

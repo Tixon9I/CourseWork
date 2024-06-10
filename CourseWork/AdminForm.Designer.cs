@@ -61,15 +61,19 @@
             this.toolTip7 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip8 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip9 = new System.Windows.Forms.ToolTip(this.components);
+            this.pictureBoxHelp = new System.Windows.Forms.PictureBox();
+            this.toolTip10 = new System.Windows.Forms.ToolTip(this.components);
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInfo)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHelp)).BeginInit();
             this.SuspendLayout();
             // 
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(156)))), ((int)(((byte)(246)))));
             this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.mainPanel.Controls.Add(this.pictureBoxHelp);
             this.mainPanel.Controls.Add(this.label2);
             this.mainPanel.Controls.Add(this.buttonEmployeeComments);
             this.mainPanel.Controls.Add(this.buttonEmployeeWithMostRequests);
@@ -351,6 +355,18 @@
             this.labelPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelPanel_MouseDown);
             this.labelPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.labelPanel_MouseMove);
             // 
+            // pictureBoxHelp
+            // 
+            this.pictureBoxHelp.Image = global::CourseWork.Properties.Resources.help;
+            this.pictureBoxHelp.Location = new System.Drawing.Point(564, 171);
+            this.pictureBoxHelp.Name = "pictureBoxHelp";
+            this.pictureBoxHelp.Size = new System.Drawing.Size(27, 28);
+            this.pictureBoxHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxHelp.TabIndex = 38;
+            this.pictureBoxHelp.TabStop = false;
+            this.toolTip10.SetToolTip(this.pictureBoxHelp, "Примітка:\r\nДля редагування записів, клікніть два рази\r\nпо рядку, який хочете відр" +
+        "едагувати");
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -365,6 +381,7 @@
             this.mainPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInfo)).EndInit();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHelp)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -402,5 +419,7 @@
         private System.Windows.Forms.ToolTip toolTip8;
         private System.Windows.Forms.ToolTip toolTip7;
         private System.Windows.Forms.ToolTip toolTip9;
+        private System.Windows.Forms.PictureBox pictureBoxHelp;
+        private System.Windows.Forms.ToolTip toolTip10;
     }
 }

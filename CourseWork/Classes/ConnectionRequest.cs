@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static CourseWork.Classes.WriteOffMaterials;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CourseWork.Classes
@@ -219,10 +220,11 @@ namespace CourseWork.Classes
             return true;
         }
 
-        private void WriteOffMaterials(short materialId, string requestType, int quantity, DateTime writeOffDate, short requestId)
+        // Фіксація списання матеріалів
+        private void WriteOffMaterials(List<MaterialRequest> materialRequests)
         {
             //WriteOffMaterials writeOffMaterials = new WriteOffMaterials();
-            writeOffMaterials.AddWriteOffMaterials(materialId, requestType, quantity, writeOffDate, requestId);
+            writeOffMaterials.AddConnectionRequestWriteOffMaterials(materialRequests);
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)
@@ -247,21 +249,32 @@ namespace CourseWork.Classes
 
             if (selectedMaterial != default)
             {
-                // Викликати функцію WriteOffMaterials
                 short materialId = selectedMaterial.MaterialId;
                 string requestType = selectedMaterial.RequestType;
                 int quantity = selectedMaterial.Quantity;
                 DateTime writeOffDate = dateTimePickerDate.Value.Date.Add(dateTimePickerTime.Value.TimeOfDay);
-                short idRequest = _idRequest; // Використовується з глобальної змінної
+                short idRequest = _idRequest;
 
-                WriteOffMaterials(materialId, requestType, quantity, writeOffDate, idRequest);
+                // Формування списку запитів
+                List<MaterialRequest> materialRequests = new List<MaterialRequest>
+        {
+            new MaterialRequest
+            {
+                MaterialId = materialId,
+                RequestType = requestType,
+                Quantity = quantity,
+                WriteOffDate = writeOffDate,
+                RequestId = idRequest
+            }
+        };
 
-                // Закрити форму або виконати інші необхідні дії
+                WriteOffMaterials(materialRequests);
+
                 this.Close();
             }
             else
             {
-                // Обробка випадку, коли матеріал не знайдено (якщо необхідно)
+                // Обробка випадку, коли матеріал не знайдено
                 MessageBox.Show("Матеріал не знайдено у списку.");
             }
         }
