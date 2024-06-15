@@ -18,6 +18,7 @@ namespace CourseWork
         {
             InitializeComponent();
 
+
             StartPosition = FormStartPosition.CenterScreen;
 
             comboBoxAccident.Items.AddRange(new string[]

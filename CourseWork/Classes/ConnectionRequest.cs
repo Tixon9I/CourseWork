@@ -21,6 +21,7 @@ namespace CourseWork.Classes
         private string _details;
         private decimal fixedAmount;
 
+
         public DateTime workDate;
 
         Database dataBase = new Database();

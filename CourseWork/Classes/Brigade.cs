@@ -23,6 +23,7 @@ namespace CourseWork.Classes
 
         public Brigade[] AssignBrigade(DateTime date)
         {
+
             List<Brigade> freeBrigades = new List<Brigade>();
 
             using (SqlConnection connection = dataBase.getConnection())

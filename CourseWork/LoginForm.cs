@@ -19,6 +19,7 @@ namespace CourseWork
         Database dataBase = new Database();
         private bool selectedRole;
 
+
         public LoginForm()
         {
             InitializeComponent();

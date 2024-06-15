@@ -13,6 +13,7 @@ namespace CourseWork.Classes
 
         public void AddConnectionRequestWriteOffMaterials(List<MaterialRequest> materialRequests)
         {
+
             using (SqlConnection connection = dataBase.getConnection())
             {
                 dataBase.openConnection(connection);

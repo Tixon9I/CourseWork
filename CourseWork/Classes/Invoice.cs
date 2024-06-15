@@ -13,6 +13,7 @@ namespace CourseWork.Classes
 
         public decimal GetAmountForRequestType(string requestType)
         {
+
             decimal fixedAmount = 0;
 
             using (SqlConnection connection = dataBase.getConnection())

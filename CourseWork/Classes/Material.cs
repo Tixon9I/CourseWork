@@ -13,6 +13,7 @@ namespace CourseWork.Classes
 
         public List<(short MaterialId, string RequestType, int Quantity)> CheckMaterials(string requestType)
         {
+
             List<(short MaterialId, string RequestType, int Quantity)> requiredMaterials = new List<(short MaterialId, string RequestType, int Quantity)>();
 
             using (SqlConnection connection = dataBase.getConnection())

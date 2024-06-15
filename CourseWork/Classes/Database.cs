@@ -13,6 +13,7 @@ namespace CourseWork
 
         public SqlConnection getConnection()
         {
+
             return new SqlConnection(connectionString);
         }
 

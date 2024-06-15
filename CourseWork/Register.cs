@@ -19,6 +19,7 @@ namespace CourseWork
             InitializeComponent();
         }
 
+
         // Кастомізована кнопка закриття вікна
         private void closeButton_Click(object sender, EventArgs e)
         {

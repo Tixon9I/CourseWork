@@ -22,6 +22,7 @@ namespace CourseWork.Classes
 
         public DateTime workDate;
 
+
         Database dataBase = new Database();
 
         Brigade brigade = new Brigade();

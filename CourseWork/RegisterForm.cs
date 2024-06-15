@@ -16,6 +16,7 @@ namespace CourseWork
     public partial class RegisterForm : Form
     {
 
+
         Database dataBase = new Database();
         private bool selectedRole;
 

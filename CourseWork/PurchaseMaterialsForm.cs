@@ -15,6 +15,7 @@ namespace CourseWork
     {
         Database dataBase = new Database();
 
+
         public PurchaseMaterialsForm()
         {
             InitializeComponent();

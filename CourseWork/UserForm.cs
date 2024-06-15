@@ -22,6 +22,7 @@ namespace CourseWork
             InitializeComponent();
         }
 
+
         private void buttonEditPersonalEdit_Click(object sender, EventArgs e)
         {
             using (EditPersonalForm editForm = new EditPersonalForm(currentClientId))

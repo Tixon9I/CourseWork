@@ -20,6 +20,7 @@ namespace CourseWork
 
         private Database dataBase = new Database();
 
+
         public EditPersonalForm(int clientId)
         {
             InitializeComponent();
